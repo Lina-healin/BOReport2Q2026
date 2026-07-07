@@ -1,0 +1,1312 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q2 2026 Malaysia · 4DX / SCREENX Performance Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAFAF6;
+    --surface:#FFFFFF;
+    --surface-2:#F2F1EA;
+    --border:#E1DFD5;
+    --text:#211F1B;
+    --text-dim:#716D63;
+    --accent:#B4711E;
+    --accent-soft:#F3E3C8;
+    --c-4dx:#6748D6;
+    --c-sx:#0E8F87;
+    --warn:#BB4B3C;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Newsreader',serif; font-weight:500; margin:0;}
+  .mono{font-family:'Space Mono',monospace;}
+  a{color:var(--accent);}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+  @media (max-width:640px){ .wrap{padding:0 18px;} }
+
+  .sprockets{
+    height:20px;
+    background-image: radial-gradient(circle 5px, var(--bg) 5px, transparent 5.5px);
+    background-color: var(--surface-2);
+    background-repeat: repeat-x;
+    background-position: 14px center;
+    background-size: 34px 20px;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+
+  header.hero{
+    padding:56px 0 40px;
+    background:
+      radial-gradient(ellipse 900px 360px at 12% -20%, var(--accent-soft), transparent 60%),
+      var(--bg);
+    border-bottom:1px solid var(--border);
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:16px;
+  }
+  header.hero h1{
+    font-size:clamp(22px,3.6vw,34px);
+    line-height:1.15;
+    white-space:nowrap;
+    color:var(--text);
+  }
+  @media (max-width:560px){
+    header.hero h1{ white-space:normal; font-size:clamp(20px,6vw,26px); }
+  }
+  .kpi-row{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin-top:32px;
+  }
+  @media (max-width:820px){ .kpi-row{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:520px){ .kpi-row{grid-template-columns:repeat(2,1fr);} }
+  .kpi{background:var(--surface); padding:18px 20px;}
+  .kpi .label{font-size:12px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.06em;}
+  .kpi .value{font-family:'Newsreader',serif; font-size:26px; margin-top:6px;}
+
+  section{padding:56px 0;}
+  .section-head{margin-bottom:30px;}
+  .section-head .eyebrow{margin-bottom:8px;}
+  .section-head h2{font-size:clamp(22px,3vw,30px);}
+
+  .tiers{display:flex; flex-direction:column; gap:2px;}
+  .tier{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:24px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--tier-color, var(--accent));
+    padding:22px 24px;
+    margin-bottom:8px;
+    border-radius:6px;
+  }
+  @media (max-width:760px){ .tier{grid-template-columns:1fr; gap:8px;} }
+  .tier .tag{
+    display:inline-block;
+    font-family:'Inter',sans-serif;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.03em;
+    color:var(--tier-color, var(--accent));
+    background:var(--tag-bg, var(--accent-soft));
+    padding:4px 10px;
+    border-radius:20px;
+  }
+  .tier h3{font-size:18px; margin-top:10px; color:var(--text); line-height:1.45;}
+  .tier p{color:var(--text-dim); font-size:14.5px; margin-top:10px; max-width:640px;}
+
+  table.detail{width:100%; border-collapse:collapse; font-size:14px; background:var(--surface);}
+  table.detail th{
+    text-align:left; padding:10px 12px; color:var(--text-dim);
+    font-weight:500; font-size:12px; text-transform:uppercase; letter-spacing:.04em;
+    border-bottom:1px solid var(--border);
+  }
+  table.detail td{padding:12px; border-bottom:1px solid var(--border); vertical-align:top;}
+  table.detail td.title-cell{color:var(--text); font-weight:500;}
+  .fmt-pill{
+    display:inline-block; padding:2px 8px; border-radius:20px; font-size:11px;
+    font-family:'Space Mono',monospace;
+  }
+  .fmt-pill.f4dx{background:rgba(103,72,214,.10); color:var(--c-4dx);}
+  .fmt-pill.fsx{background:rgba(14,143,135,.10); color:var(--c-sx);}
+  @media (max-width:700px){
+    table.detail thead{display:none;}
+    table.detail, table.detail tbody, table.detail tr, table.detail td{display:block; width:100%;}
+    table.detail tr{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:10px; padding:14px 16px;}
+    table.detail td{padding:4px 0; border-bottom:none;}
+    table.detail td::before{content:attr(data-label); display:block; font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.04em; margin-bottom:2px;}
+  }
+
+  .dash-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px;}
+  .controls{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; position:relative;}
+  select{
+    background:var(--surface); color:var(--text); border:1px solid var(--border);
+    border-radius:8px; padding:9px 14px; font-family:'Inter',sans-serif; font-size:14px;
+  }
+  .msel{position:relative;}
+  .msel-btn{
+    background:var(--surface); color:var(--text); border:1px solid var(--border);
+    border-radius:8px; padding:9px 14px; font-family:'Inter',sans-serif; font-size:14px;
+    cursor:pointer; min-width:180px; text-align:left; display:flex; justify-content:space-between; gap:10px; align-items:center;
+  }
+  .msel-btn:after{content:'▾'; color:var(--text-dim); font-size:11px;}
+  .msel-panel{
+    display:none; position:absolute; top:calc(100% + 6px); left:0; z-index:20;
+    background:var(--surface); border:1px solid var(--border); border-radius:8px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08); padding:8px; min-width:280px; max-height:320px; overflow-y:auto;
+  }
+  .msel-panel.open{display:block;}
+  .msel-row{display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:6px; font-size:13.5px; cursor:pointer;}
+  .msel-row:hover{background:var(--surface-2);}
+  .msel-row.all{border-bottom:1px solid var(--border); margin-bottom:4px; font-weight:500;}
+  .msel-row input{accent-color:var(--accent);}
+  .dash-kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px;}
+  @media (max-width:700px){ .dash-kpis{grid-template-columns:repeat(2,1fr);} }
+  .dash-kpis .k{background:var(--surface-2); border-radius:8px; padding:14px 16px;}
+  .dash-kpis .k .label{font-size:11.5px; color:var(--text-dim); text-transform:uppercase;}
+  .dash-kpis .k .value{font-family:'Newsreader',serif; font-size:22px; margin-top:4px;}
+  .legend{display:flex; gap:16px; font-size:12px; color:var(--text-dim); margin-bottom:10px;}
+  .legend .dot{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:5px;}
+  #chartWrap{position:relative; width:100%; margin-bottom:28px;}
+  table.dashtable{width:100%; border-collapse:collapse; font-size:13px;}
+  table.dashtable th{text-align:left; padding:8px 10px; color:var(--text-dim); font-weight:500; font-size:11.5px; text-transform:uppercase; border-bottom:1px solid var(--border);}
+  table.dashtable td{padding:9px 10px; border-bottom:1px solid var(--border);}
+  table.dashtable tbody tr:hover{background:var(--surface-2);}
+  .table-scroll{max-height:440px; overflow-y:auto; border:1px solid var(--border); border-radius:8px;}
+
+  footer{padding:36px 0 56px; color:var(--text-dim); font-size:13px;}
+
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+  [contenteditable="true"]{ cursor:text; border-radius:4px; }
+  [contenteditable="true"]:hover, [contenteditable="true"]:focus{
+    outline:1.5px dashed var(--accent); outline-offset:2px; background:var(--accent-soft);
+  }
+  #editBar{
+    position:fixed; bottom:20px; right:20px; z-index:60;
+    display:flex; gap:8px; align-items:center;
+    background:var(--surface); border:1px solid var(--border); border-radius:30px;
+    padding:8px 10px; box-shadow:0 6px 20px rgba(0,0,0,.14);
+    font-family:'Inter',sans-serif; font-size:13px;
+  }
+  #editBar button{border:none; border-radius:20px; padding:8px 16px; font-size:13px; cursor:pointer; font-family:'Inter',sans-serif;}
+  #editToggleBtn{background:var(--accent); color:#fff;}
+  #saveBtn{background:var(--surface); color:var(--text); border:1px solid var(--border) !important;}
+  #editBar .hint{color:var(--text-dim); font-size:11.5px; padding:0 4px; display:none;}
+  #editBar.active .hint{display:inline;}
+
+  .app{display:flex; align-items:flex-start;}
+  .sidebar{
+    width:220px; flex:0 0 220px; background:var(--surface-2);
+    border-right:1px solid var(--border); min-height:100vh;
+    padding:28px 16px; position:sticky; top:0;
+  }
+  .sidebar-brand{font-family:'Newsreader',serif; font-size:15px; margin-bottom:20px; color:var(--text); line-height:1.4;}
+  .chapter-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:4px;}
+  .chapter-item{
+    padding:10px 12px; border-radius:8px; font-size:14px; cursor:grab;
+    color:var(--text-dim); border:1px solid transparent; user-select:none;
+    display:flex; align-items:center; gap:8px;
+  }
+  .chapter-item .drag-handle{color:var(--border); font-size:12px;}
+  .chapter-item:hover{background:var(--surface);}
+  .chapter-item.active{background:var(--surface); color:var(--text); font-weight:600; border-color:var(--border);}
+  .chapter-item.dragging{opacity:.4;}
+  .sidebar-hint{margin-top:18px; font-size:11px; color:var(--text-dim);}
+  .content{flex:1; min-width:0;}
+  .chapter{display:none;}
+  .chapter.active{display:block;}
+  @media (max-width:860px){
+    .app{flex-direction:column;}
+    .sidebar{width:100%; position:static; min-height:auto; border-right:none; border-bottom:1px solid var(--border); padding:16px;}
+    .chapter-list{flex-direction:row; overflow-x:auto; gap:8px;}
+    .chapter-item{white-space:nowrap;}
+    .sidebar-hint{display:none;}
+  }
+
+</style>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-brand">Q2 2026<br>4DX / SCREENX<br>Performance Review</div>
+    <ul class="chapter-list" id="chapterList">
+  <li class="chapter-item active" draggable="true" data-chapter="malaysia"><span class="drag-handle">⠿</span>Malaysia</li>
+  <li class="chapter-item" draggable="true" data-chapter="korea"><span class="drag-handle">⠿</span>Korea</li>
+  <li class="chapter-item" draggable="true" data-chapter="taiwan"><span class="drag-handle">⠿</span>Taiwan</li>
+  <li class="chapter-item" draggable="true" data-chapter="australia"><span class="drag-handle">⠿</span>Australia</li>
+  <li class="chapter-item" draggable="true" data-chapter="vietnam"><span class="drag-handle">⠿</span>Vietnam</li>
+  <li class="chapter-item" draggable="true" data-chapter="thailand"><span class="drag-handle">⠿</span>Thailand</li>
+    </ul>
+    <div class="sidebar-hint">챕터를 드래그해 순서를 바꿀 수 있어요</div>
+  </aside>
+  <main class="content">
+<div class="chapter active" data-chapter="malaysia">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Malaysia · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun)</div>
+    <h1>Malaysia Q2 Programming &amp; Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$746.7K</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$8.42</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">$210</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">$225</div></div>
+      <div class="kpi"><div class="label">대표 성공작</div><div class="value">Colony</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="trends">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Trend Summary</div>
+      <h2>바로 보이는 말레이 트렌드</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier" style="--tier-color:#8A5714; --tag-bg:#F3E3C8;">
+        <div><span class="tag">대표 성공작</span><h3>Colony</h3></div>
+        <p>4DX/SX 모두 5주 운영되며 Q2 Malaysia에서 가장 안정적인 Cross-Format 성과를 기록했습니다. 4DX는 GBO $194.5K, PSA $318, OCC 35.1%로, 4DX 평균 PSA($210)의 약 1.5배에 달했습니다. SCREENX는 PSA $316으로 Prada 2($344)에 이어 전체 SX 타이틀 중 두 번째로 높았습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5836B0; --tag-bg:#EBE5F9;">
+        <div><span class="tag">4DX 핵심작</span><h3>Lee Cronin's The Mummy<br>Toy Story 5</h3></div>
+        <p>The Mummy는 W3에 PSA $270, OCC 28.5%까지 오르며 Q2 평균(PSA $196)을 크게 웃돌았습니다. 대부분 타이틀이 주차가 지날수록 PSA가 낮아지는 것과 달리, 후반부로 갈수록 강해지는 흐름을 보였습니다. Toy Story 5는 2주 평균 PSA $236 중 W2가 $273, OCC 31.6%로 평균을 상회해, Family Animation 장르에서도 오프닝 이후 수요가 유지·개선된 사례입니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#0B6F69; --tag-bg:#DFF1EF;">
+        <div><span class="tag">SCREENX 핵심작</span><h3>The Devil Wears Prada 2<br>Michael<br>Masters of the Universe</h3></div>
+        <p>Prada 2는 SX 전용 타이틀로 PSA $344를 기록했는데, 이는 Colony(SX PSA $316)를 포함한 전체 SX 타이틀 중 가장 높은 수치입니다. Michael은 4DX PSA $110에 그친 반면 SX PSA는 $224로 4DX의 두 배 이상이었고, Masters of the Universe도 4DX PSA $194 대비 SX PSA $300으로 약 1.5배 높아, 두 타이틀 모두 SCREENX 쪽 수요가 뚜렷하게 컸습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5B584F; --tag-bg:#EBE9E0;">
+        <div><span class="tag">롱테일작</span><h3>Project Hail Mary<br>The Super Mario Galaxy Movie</h3></div>
+        <p>PHM은 개봉일이 2026-03-19로 Q2 시작 전이며, Q2 4주간 4DX PSA $136, SX PSA $168 수준을 유지해 신작 대비 낮지만 완만한 Holdover 흐름을 보였습니다. Mario Galaxy는 4DX에서 PSA $206, OCC 24.2%로 준수했지만 SX는 PSA $99, OCC 6.5%에 그쳐 4DX 대비 절반, OCC는 3분의 1 수준으로 SCREENX 전환력이 뚜렷하게 낮았습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#A23B2E; --tag-bg:#F8DFDB;">
+        <div><span class="tag">아쉬운 작품</span><h3>Mortal Kombat 2<br>Supergirl</h3></div>
+        <p>Mortal Kombat 2는 4DX 180회차로 비교적 큰 편성을 받았음에도 PSA $131, OCC 13.6%로 4DX 평균(PSA $210)의 62% 수준에 그쳤습니다. Supergirl은 4DX PSA $165로 마찬가지로 평균을 밑돌았고, 비슷한 시기 상영된 Toy Story 5(PSA $236, OCC 27.8%)와 비교하면 PSA는 약 30%, OCC는 9.5%p 낮았습니다. 다만 이는 포맷핏뿐 아니라 타이틀 자체의 시장 수요 약세도 함께 반영된 결과로 봐야 합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<section id="details">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Title Detail</div>
+      <h2>타이틀별 운영 주차 / 성과 정리</h2>
+    </div>
+    <table class="detail" id="detailTable">
+      <thead><tr><th>타이틀</th><th>포맷</th><th>운영주차</th><th>흥행정도 <sup>*</sup></th><th>코멘트</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p class="footnote-text" style="font-size:12.5px; color:var(--text-dim); margin-top:14px; line-height:1.7;">
+      <sup>*</sup> 흥행정도 판단 기준 — 성과 판단은 GBO와 PSA를 주요 기준으로 보되, 운영 주차를 통해 성과 지속성을 확인하고 OCC를 보조 지표로 활용했습니다. PSA는 회차당 생산성을 보여주는 핵심 지표이지만, 4DX와 SCREENX는 관당 좌석 규모가 달라 포맷 간 직접 비교보다는 동일 포맷 내 타이틀 효율 비교에 우선 활용했습니다. 장기 운영 타이틀은 후반부 Long-Tail 구간까지 평균에 포함되며 누적 PSA가 낮아질 수 있어, 누적 PSA만으로 성과를 낮게 판단하지 않고 초반 Peak와 Holdover 흐름을 함께 반영했습니다. 운영 주차는 말레이시아 기본 집계 기준인 목–수 사이클을 적용했습니다(수요일 개봉작은 첫 주차만 수–수로 포함). 일부 타이틀의 성과 차이는 포맷 적합도뿐 아니라 타이틀 자체의 시장 수요와 함께 해석할 필요가 있습니다.
+    </p>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<section id="dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="titleMsel">
+          <button type="button" class="msel-btn" id="titleMselBtn">타이틀 전체 (13)</button>
+          <div class="msel-panel" id="titleMselPanel"></div>
+        </div>
+        <select id="formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="chartWrap"><canvas id="gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Malaysia 4DX / SCREENX Programming &amp; Performance Review</div>
+</footer>
+</div>
+<div class="chapter" data-chapter="korea">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Korea · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun)</div>
+    <h1>Korea Q2 4DX / SCREENX Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$9.73M</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$11.79</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">$252</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">$306</div></div>
+      <div class="kpi"><div class="label">최고 GBO 타이틀</div><div class="value">The Super Mario Galaxy Movie</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="kr-trends">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Trend Summary</div>
+      <h2>바로 보이는 Korea 트렌드</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier" style="--tier-color:#8A5714; --tag-bg:#F3E3C8;">
+        <div><span class="tag">대표 성공작</span><h3>The Super Mario Galaxy Movie</h3></div>
+        <p>4DX+SX 합산 GBO $2.01M로 Korea 전체 1위입니다. 4DX PSA $451(4DX 평균 $252의 1.8배), OCC 35.2%, SX PSA $440(SX 평균 $306의 1.4배)으로 두 포맷 모두 평균을 크게 상회한 진짜 Cross-Format 히트작입니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5836B0; --tag-bg:#EBE5F9;">
+        <div><span class="tag">4DX 핵심작</span><h3>The Super Mario Galaxy Movie<br>Toy Story 5 · Colony (물량 기준)</h3></div>
+        <p>Korea는 대부분 타이틀에서 SX PSA가 4DX보다 높게 나타나는 시장입니다(Mario Galaxy 제외). 다만 Colony(4DX 2,831회차)·Toy Story 5(4DX 2,411회차)는 4DX가 압도적인 상영 물량을 담당해, PSA는 SX가 근소 우위여도 실제 매출 볼륨은 4DX가 견인했습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#0B6F69; --tag-bg:#DFF1EF;">
+        <div><span class="tag">SCREENX 핵심작</span><h3>Michael<br>PLAVE Asia Tour · ONE OK ROCK</h3></div>
+        <p>Michael은 4DX PSA $117에 그친 반면 SX PSA는 $345로 3배 가까이 높았습니다. PLAVE Asia Tour(SX PSA $578)와 ONE OK ROCK(SX PSA $671)은 콘서트 실황 콘텐츠가 SCREENX에서 유독 강한 반응을 보인 사례로, 두 타이틀 모두 SX 평균($306)을 크게 웃돌았습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5B584F; --tag-bg:#EBE9E0;">
+        <div><span class="tag">롱테일작</span><h3>Demon Slayer: Infinity Castle<br>Attack on Titan (2026 Re-release)</h3></div>
+        <p>Demon Slayer는 개봉일이 2025-08-22로 Q2보다 8개월 이상 앞섰음에도 4DX GBO $419.3K·SX GBO $371.6K를 기록해, Korea에서 가장 뚜렷한 Long-Tail 사례로 남았습니다. Attack on Titan 재개봉(2026-03-20)도 4DX PSA $151로 완만하게 유지됐습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#A23B2E; --tag-bg:#F8DFDB;">
+        <div><span class="tag">아쉬운 작품</span><h3>Supergirl<br>That Time I Got Reincarnated as a Slime the Movie</h3></div>
+        <p>Supergirl은 4DX PSA $63·OCC 5.0%, SX PSA $86·OCC 5.5%로 두 포맷 모두 평균의 4분의 1 수준에 그쳐 Korea에서 가장 약세였습니다. Slime the Movie도 PSA $104·OCC 8.7%로 4DX 평균을 크게 밑돌았습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+
+<section id="kr-dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="kr-titleMsel">
+          <button type="button" class="msel-btn" id="kr-titleMselBtn">타이틀 전체</button>
+          <div class="msel-panel" id="kr-titleMselPanel"></div>
+        </div>
+        <select id="kr-formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="kr-sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="kr-kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="kr-kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="kr-kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="kr-kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="kr-chartWrap"><canvas id="kr-gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="kr-dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Korea 4DX / SCREENX Performance Review</div>
+</footer>
+</div>
+
+<div class="chapter" data-chapter="taiwan">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Taiwan · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun)</div>
+    <h1>Taiwan Q2 4DX / SCREENX Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$4.43M</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$17.03</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">$664</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">$446</div></div>
+      <div class="kpi"><div class="label">최고 GBO 타이틀</div><div class="value">The Super Mario Galaxy Movie</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="tw-trends">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Trend Summary</div>
+      <h2>바로 보이는 Taiwan 트렌드</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier" style="--tier-color:#8A5714; --tag-bg:#F3E3C8;">
+        <div><span class="tag">대표 성공작</span><h3>The Super Mario Galaxy Movie</h3></div>
+        <p>4DX+SX 합산 GBO $1.02M로 Taiwan 1위입니다. 4DX PSA $792(4DX 평균 $664의 1.19배)·OCC 33.3%, SX PSA $537(SX 평균 $446의 1.2배)로 두 포맷 모두 평균 이상이었습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5836B0; --tag-bg:#EBE5F9;">
+        <div><span class="tag">4DX 핵심작</span><h3>Detective Conan: Fallen Angel of the Highway<br>Toy Story 5 · Lee Cronin's The Mummy</h3></div>
+        <p>Taiwan은 Korea와 반대로 4DX PSA가 SX보다 높은 타이틀이 대부분입니다. Detective Conan은 4DX PSA $1,706·OCC 81.5%로 전체 데이터 중 최고 효율을 기록했고(SX 대비 2.2배), Toy Story 5(4DX $1,052 vs SX $475)와 The Mummy(4DX $817 vs SX $320)도 4DX가 2배 이상 앞섰습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#0B6F69; --tag-bg:#DFF1EF;">
+        <div><span class="tag">SCREENX 핵심작</span><h3>Demon Slayer: Infinity Castle</h3></div>
+        <p>Taiwan에서 SX가 4DX를 앞선 사례는 많지 않지만, Demon Slayer는 SX 전용으로 상영되며 PSA $1,627·OCC 33.4%를 기록해 Taiwan 전체 타이틀 중 가장 높은 PSA를 남겼습니다. 4DX가 강세인 시장에서도 콘텐츠 자체 화제성이 크면 SX만으로도 최상위 효율이 가능함을 보여주는 사례입니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5B584F; --tag-bg:#EBE9E0;">
+        <div><span class="tag">롱테일작</span><h3>Project Hail Mary</h3></div>
+        <p>개봉일이 2026-03-11로 Q2 이전임에도 4DX PSA $769·OCC 32.8%, SX PSA $448·OCC 12.8%로 여전히 평균에 근접하거나 상회하는 수치를 유지해, Holdover치고는 이례적으로 견조한 흐름을 보였습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#A23B2E; --tag-bg:#F8DFDB;">
+        <div><span class="tag">아쉬운 작품</span><h3>Masters of the Universe<br>Mortal Kombat 2</h3></div>
+        <p>Masters of the Universe는 4DX PSA $177·OCC 8.6%, SX PSA $115·OCC 4.1%로 각 포맷 평균의 4분의 1 수준에 그쳤습니다. Mortal Kombat 2도 4DX PSA $182, SX PSA $144로 비슷하게 약세였습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+
+<section id="tw-dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="tw-titleMsel">
+          <button type="button" class="msel-btn" id="tw-titleMselBtn">타이틀 전체</button>
+          <div class="msel-panel" id="tw-titleMselPanel"></div>
+        </div>
+        <select id="tw-formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="tw-sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="tw-kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="tw-kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="tw-kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="tw-kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="tw-chartWrap"><canvas id="tw-gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="tw-dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Taiwan 4DX / SCREENX Performance Review</div>
+</footer>
+</div>
+
+<div class="chapter" data-chapter="australia">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Australia · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun)</div>
+    <h1>Australia Q2 4DX / SCREENX Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$2.51M</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$18.71</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">$463</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">$530</div></div>
+      <div class="kpi"><div class="label">최고 GBO 타이틀</div><div class="value">The Super Mario Galaxy Movie</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="au-trends">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Trend Summary</div>
+      <h2>바로 보이는 Australia 트렌드</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier" style="--tier-color:#8A5714; --tag-bg:#F3E3C8;">
+        <div><span class="tag">대표 성공작</span><h3>The Super Mario Galaxy Movie</h3></div>
+        <p>4DX+SX 합산 GBO $902.6K로 Australia 1위입니다. 4DX PSA $702(4DX 평균 $463의 1.5배)·OCC 29.7%, SX PSA $653(SX 평균 $530의 1.23배)·OCC 28.9%로 두 포맷 모두 평균을 크게 웃돌았습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5836B0; --tag-bg:#EBE5F9;">
+        <div><span class="tag">4DX 핵심작</span><h3>Top Gun: Maverick (2026 Re-release)</h3></div>
+        <p>Top Gun: Maverick 재개봉은 4DX PSA $844로 Australia 4DX 타이틀 중 최고치를 기록했고, 이는 같은 타이틀 SX PSA($369)의 2.3배에 달합니다. Australia는 대부분 타이틀에서 SX PSA가 더 높은 시장이라, 이 타이틀의 4DX 편중은 예외적으로 뚜렷합니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#0B6F69; --tag-bg:#DFF1EF;">
+        <div><span class="tag">SCREENX 핵심작</span><h3>Colony<br>Michael</h3></div>
+        <p>Colony는 SX PSA $734로 Australia 전체 최고치를 기록했는데, 이는 같은 타이틀 4DX PSA($303)의 2.4배에 달합니다. Michael도 SX PSA $600으로 4DX($430) 대비 뚜렷하게 높아, 두 타이틀 모두 SCREENX 쪽 수요가 컸습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5B584F; --tag-bg:#EBE9E0;">
+        <div><span class="tag">롱테일작</span><h3>Project Hail Mary</h3></div>
+        <p>개봉일 2026-03-14(SX)/03-17(4DX)로 Q2 이전 개봉작이지만, 4DX PSA $534·SX PSA $629 모두 각 포맷 평균을 상회해 이례적으로 강한 Holdover 흐름을 보였습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#A23B2E; --tag-bg:#F8DFDB;">
+        <div><span class="tag">아쉬운 작품</span><h3>That Time I Got Reincarnated as a Slime the Movie</h3></div>
+        <p>4DX PSA $62·OCC 2.5%로 Australia 전체 데이터를 통틀어 가장 낮은 수치를 기록했습니다. Mobile Suit Gundam Hathaway도 PSA $192·OCC 8.0%로 4DX 평균의 절반 이하에 그쳤습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+
+<section id="au-dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="au-titleMsel">
+          <button type="button" class="msel-btn" id="au-titleMselBtn">타이틀 전체</button>
+          <div class="msel-panel" id="au-titleMselPanel"></div>
+        </div>
+        <select id="au-formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="au-sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="au-kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="au-kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="au-kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="au-kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="au-chartWrap"><canvas id="au-gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="au-dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Australia 4DX / SCREENX Performance Review</div>
+</footer>
+</div>
+
+<div class="chapter" data-chapter="vietnam">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Vietnam · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun)</div>
+    <h1>Vietnam Q2 4DX / SCREENX Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$387.2K</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$5.97</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">$87</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">$81</div></div>
+      <div class="kpi"><div class="label">최고 GBO 타이틀</div><div class="value">Doraemon: Nobita and the New Castle of the Undersea Devil</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="vn-trends">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Trend Summary</div>
+      <h2>바로 보이는 Vietnam 트렌드</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier" style="--tier-color:#8A5714; --tag-bg:#F3E3C8;">
+        <div><span class="tag">대표 성공작</span><h3>Doraemon: Nobita and the New Castle of the Undersea Devil</h3></div>
+        <p>4DX 전용으로 GBO $79.5K, PSA $128(4DX 평균 $87의 1.5배)·OCC 19.0%를 기록해 Vietnam 내 GBO 1위입니다. Colony·Mario 등 글로벌 대작보다 로컬 인지도가 높은 일본 애니메이션 프랜차이즈가 가장 강한 성과를 보인 점이 다른 5개국과 다른 지점입니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5836B0; --tag-bg:#EBE5F9;">
+        <div><span class="tag">4DX 핵심작</span><h3>Doraemon (단독)<br>The Super Mario Galaxy Movie</h3></div>
+        <p>Vietnam도 대부분 타이틀에서 SX PSA가 4DX보다 근소하게 높지만, Mario Galaxy는 4DX PSA $69로 SX($52)보다 33% 높았고, Doraemon은 4DX 전용 개봉으로 비교 자체가 4DX 쪽에만 존재합니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#0B6F69; --tag-bg:#DFF1EF;">
+        <div><span class="tag">SCREENX 핵심작</span><h3>Colony</h3></div>
+        <p>Colony는 SX PSA $130으로 Vietnam 전체 SX 타이틀 중 가장 높았고(SX 평균 $81의 1.6배), OCC도 11.4%로 양호했습니다. 다만 절대 수치 자체는 다른 5개국보다 낮아, Vietnam은 전반적으로 PSA 스케일이 작은 시장입니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5B584F; --tag-bg:#EBE9E0;">
+        <div><span class="tag">롱테일작</span><h3>Project Hail Mary<br>Hoppers</h3></div>
+        <p>PHM은 개봉일 2026-03-19로 Q2 이전 개봉작으로 PSA $61(4DX)·$74(SX) 수준의 완만한 Holdover를 유지했습니다. Hoppers는 4DX 5회차·GBO $0.1K로 사실상 상영 종료 직전의 잔여 회차만 남은 상태였습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#A23B2E; --tag-bg:#F8DFDB;">
+        <div><span class="tag">아쉬운 작품</span><h3>Ready or Not 2: Here I Come<br>Supergirl</h3></div>
+        <p>Ready or Not 2는 Q2 중 신규 개봉(2026-04-10)임에도 4DX PSA $27·OCC 4.0%로 Vietnam 전체 신작 중 가장 약세였습니다. Supergirl도 4DX PSA $41·OCC 4.5%, SX PSA $41·OCC 3.6%로 비슷하게 부진했습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+
+<section id="vn-dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="vn-titleMsel">
+          <button type="button" class="msel-btn" id="vn-titleMselBtn">타이틀 전체</button>
+          <div class="msel-panel" id="vn-titleMselPanel"></div>
+        </div>
+        <select id="vn-formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="vn-sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="vn-kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="vn-kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="vn-kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="vn-kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="vn-chartWrap"><canvas id="vn-gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="vn-dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Vietnam 4DX / SCREENX Performance Review</div>
+</footer>
+</div>
+
+<div class="chapter" data-chapter="thailand">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Thailand · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun)</div>
+    <h1>Thailand Q2 4DX / SCREENX Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$250.5K</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$12.17</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">$206</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">$269</div></div>
+      <div class="kpi"><div class="label">최고 GBO 타이틀</div><div class="value">The Super Mario Galaxy Movie</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="th-trends">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Trend Summary</div>
+      <h2>바로 보이는 Thailand 트렌드</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier" style="--tier-color:#8A5714; --tag-bg:#F3E3C8;">
+        <div><span class="tag">대표 성공작</span><h3>The Super Mario Galaxy Movie</h3></div>
+        <p>4DX+SX 합산 GBO $43.0K로 Thailand 1위입니다. 다만 4DX PSA $247(4DX 평균 $206의 1.2배)·OCC 15.8%로 견조했던 것과 달리, SX PSA는 $128로 SX 평균($269)보다 오히려 낮아, 다른 5개국과 달리 이 타이틀의 성공은 4DX 쪽에 더 치우쳐 있었습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5836B0; --tag-bg:#EBE5F9;">
+        <div><span class="tag">4DX 핵심작</span><h3>The Super Mario Galaxy Movie<br>ENHYPEN: IMMERSION IN CINEMAS VR</h3></div>
+        <p>ENHYPEN VR 콘텐츠는 4DX PSA $274로 SX($197)보다 39% 높아, K-POP VR 콘텐츠가 4DX 포맷과 잘 맞는 사례로 나타났습니다. Mario Galaxy 역시 4DX가 SX보다 뚜렷하게 앞선 타이틀입니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#0B6F69; --tag-bg:#DFF1EF;">
+        <div><span class="tag">SCREENX 핵심작</span><h3>PLAVE Asia Tour<br>ONE OK ROCK DETOX JAPAN TOUR</h3></div>
+        <p>PLAVE Asia Tour는 SX PSA $1,760·OCC 42.4%로 Thailand 전체 데이터 중 최고 효율을 기록했고, ONE OK ROCK도 SX PSA $1,479·OCC 38.8%로 그 뒤를 이었습니다. 두 콘서트 실황 모두 회차 수는 10~11회로 적었지만 회차당 생산성은 압도적이어서, Thailand에서는 콘서트 실황 콘텐츠가 SCREENX 핵심작 역할을 하고 있습니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#5B584F; --tag-bg:#EBE9E0;">
+        <div><span class="tag">롱테일작</span><h3>해당 없음</h3></div>
+        <p>Thailand 라인업은 가장 이른 개봉작(Mario Galaxy, 2026-04-02)도 Q2 초반에 개봉해, 다른 5개국과 달리 Q2 이전부터 이어진 뚜렷한 Holdover 타이틀이 없었습니다. 즉 Q2 실적 대부분이 분기 내 신규 공급으로 채워진 시장입니다.</p>
+      </div>
+      <div class="tier" style="--tier-color:#A23B2E; --tag-bg:#F8DFDB;">
+        <div><span class="tag">아쉬운 작품</span><h3>Masters of the Universe</h3></div>
+        <p>4DX 전용으로 PSA $84·OCC 5.4%를 기록해 4DX 평균($206)의 41% 수준에 그쳤고, Thailand 데이터 중 가장 약세였습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+
+<section id="th-dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="th-titleMsel">
+          <button type="button" class="msel-btn" id="th-titleMselBtn">타이틀 전체</button>
+          <div class="msel-panel" id="th-titleMselPanel"></div>
+        </div>
+        <select id="th-formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="th-sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="th-kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="th-kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="th-kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="th-kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="th-chartWrap"><canvas id="th-gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="th-dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Thailand 4DX / SCREENX Performance Review</div>
+</footer>
+</div>
+  </main>
+</div>
+
+<div id="editBar">
+  <button type="button" id="editToggleBtn">편집</button>
+  <button type="button" id="saveBtn" style="display:none;">저장 (다운로드)</button>
+  <span class="hint">텍스트를 클릭해 수정하세요</span>
+</div>
+
+<div id="pinOverlay" style="display:none; position:fixed; inset:0; background:rgba(20,18,14,.4); z-index:100; align-items:center; justify-content:center;">
+  <div style="background:var(--surface); border-radius:12px; padding:22px; width:260px; box-shadow:0 20px 50px rgba(0,0,0,.25); font-family:'Inter',sans-serif;">
+    <div style="font-size:14px; margin-bottom:10px; color:var(--text);">편집 모드 PIN 입력</div>
+    <input id="pinInput" type="password" placeholder="PIN" style="width:100%; padding:9px 10px; border:1px solid var(--border); border-radius:8px; font-size:14px; margin-bottom:6px; box-sizing:border-box;">
+    <div id="pinError" style="color:var(--warn); font-size:12px; display:none; margin-bottom:6px;">PIN이 올바르지 않습니다.</div>
+    <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
+      <button type="button" id="pinCancel" style="border:1px solid var(--border); background:var(--surface); color:var(--text); padding:8px 14px; border-radius:8px; font-size:13px; cursor:pointer;">취소</button>
+      <button type="button" id="pinSubmit" style="border:none; background:var(--accent); color:#fff; padding:8px 14px; border-radius:8px; font-size:13px; cursor:pointer;">확인</button>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ---------- detail table ----------
+const DETAIL = [
+  ['The Super Mario Galaxy Movie','4DX','3주','좋음','W1 GBO $56.0K, PSA $238로 오프닝 반응 양호, 4DX 평균(PSA $210)을 상회하는 Family Animation 수요'],
+  ['','SX','4주','보통 이하','SX PSA $99, OCC 6.5%로 4DX(PSA $206, OCC 24.2%) 대비 절반 이하 수준'],
+  ['Project Hail Mary','4DX','4주','보통','개봉일 2026-03-19로 Q2 이전 개봉작, Q2 4주간 PSA $136 유지하며 완만한 Holdover 흐름'],
+  ['','SX','4주','보통 이하','SX PSA $168로 4DX보다 오히려 높지만 OCC는 11.3%로 낮아, 회차당 효율은 있으나 볼륨은 제한적'],
+  ["Lee Cronin's The Mummy",'4DX','4주','좋음','W3 PSA $270, OCC 28.5%까지 상승, Q2 평균(PSA $196)을 크게 상회하며 후반부로 갈수록 강해지는 흐름'],
+  ['','SX','2주','부진','SX PSA $106, OCC 8.1%로 4DX(PSA $196) 대비 약 46% 수준'],
+  ['Michael','4DX','4주','보통 이하','Q2 평균 PSA $110으로 4DX 평균($210)의 절반 수준, W2에 $166까지 회복했으나 전반적으로 낮음'],
+  ['','SX','4주','보통 이상','Q2 평균 PSA $224로 4DX(PSA $110) 대비 두 배 이상, W2 PSA $392·OCC 29.5%로 정점'],
+  ['The Devil Wears Prada 2','SX','3주','매우 좋음','Q2 평균 PSA $344로 전체 SX 타이틀 중 최고치, W1 PSA $448·OCC 38.1%로 오프닝부터 강세'],
+  ['Mortal Kombat 2','4DX','3주','보통 이하','180회차 편성에도 PSA $131로 4DX 평균($210)의 62% 수준, W1 대량 편성 대비 OCC 12.6%에 그침'],
+  ['','SX','2주','부진','SX PSA $108, OCC 7.3%로 SX 평균($225)의 절반 이하'],
+  ['Colony','4DX','5주','매우 좋음','Q2 평균 PSA $318로 4DX 평균($210)의 1.5배, W1–W2 PSA $472/$428·OCC 51.8%/48.1%로 강한 초반 수요'],
+  ['','SX','5주','좋음','Q2 평균 PSA $316으로 SX 평균($225)의 1.4배, W1–W2 모두 PSA $370 이상으로 안정적 Cross-Format 성과'],
+  ['Mandalorian and Grogu','4DX','2주','좋음','79회차의 제한된 편성에도 PSA $262로 4DX 평균 상회'],
+  ['','SX','2주','좋음','PSA $317로 SX 평균 상회, Colony 다음으로 높은 수준'],
+  ['Masters of the Universe','4DX','2주','보통 이상','PSA $194로 4DX 평균($210)에 근접, 큰 Breakout은 아니나 기본 효율은 안정적'],
+  ['','SX','2주','좋음','PSA $300으로 SX 평균 상회, 같은 타이틀 4DX(PSA $194) 대비도 약 1.5배'],
+  ['Toy Story 5','4DX','2주','좋음','2주 평균 PSA $236 중 W2가 $273, OCC 31.6%로 평균 상회하며 개선 흐름'],
+  ['','SX','2주','보통 이상','2주 평균 PSA $211로 같은 타이틀 4DX(PSA $236)보다 약 11% 낮음'],
+  ['Supergirl','4DX','1주','보통 이하','PSA $165로 Toy Story 5(PSA $236)보다 약 30% 낮고 4DX 평균($210)도 밑돎'],
+  ['','SX','1주','보통 이하','PSA $163로 SX 평균($225)의 72% 수준']
+];
+let lastTitle = '';
+const detailBody = document.querySelector('#detailTable tbody');
+DETAIL.forEach(row => {
+  const [title, fmt, weeks, rating, comment] = row;
+  const displayTitle = title || lastTitle;
+  lastTitle = displayTitle;
+  const tr = document.createElement('tr');
+  const pillClass = fmt === '4DX' ? 'f4dx' : 'fsx';
+  tr.innerHTML = `
+    <td class="title-cell" data-label="타이틀">${displayTitle}</td>
+    <td data-label="포맷"><span class="fmt-pill ${pillClass}">${fmt}</span></td>
+    <td data-label="운영주차">${weeks}</td>
+    <td data-label="흥행정도">${rating}</td>
+    <td data-label="코멘트">${comment}</td>`;
+  detailBody.appendChild(tr);
+});
+
+// ---------- Malaysia dashboard data ----------
+const DATA = [
+  {"format":"4DX","title":"Colony","screenings":611,"gbo_k":194.5,"psa":318.0,"occ":35.1,"release_date":"2026-05-21"},
+  {"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":411,"gbo_k":84.8,"psa":206.0,"occ":24.2,"release_date":"2026-04-01"},
+  {"format":"4DX","title":"Lee Cronin's The Mummy","screenings":310,"gbo_k":60.8,"psa":196.0,"occ":21.4,"release_date":"2026-04-16"},
+  {"format":"4DX","title":"Toy Story 5","screenings":232,"gbo_k":54.8,"psa":236.0,"occ":27.8,"release_date":"2026-06-17"},
+  {"format":"4DX","title":"Michael","screenings":318,"gbo_k":35.1,"psa":110.0,"occ":11.8,"release_date":"2026-04-23"},
+  {"format":"4DX","title":"Mortal Kombat 2","screenings":180,"gbo_k":23.6,"psa":131.0,"occ":13.6,"release_date":"2026-05-07"},
+  {"format":"4DX","title":"Masters of the Universe","screenings":119,"gbo_k":23.1,"psa":194.0,"occ":22.0,"release_date":"2026-06-04"},
+  {"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":79,"gbo_k":20.7,"psa":262.0,"occ":29.4,"release_date":"2026-05-21"},
+  {"format":"4DX","title":"Supergirl","screenings":118,"gbo_k":19.5,"psa":165.0,"occ":19.0,"release_date":"2026-06-24"},
+  {"format":"4DX","title":"Project Hail Mary","screenings":124,"gbo_k":16.9,"psa":136.0,"occ":14.7,"release_date":"2026-03-19"},
+  {"format":"4DX","title":"Top Gun: Maverick (2026 Re-release)","screenings":63,"gbo_k":11.4,"psa":181.0,"occ":24.9,"release_date":"2026-05-14"},
+  {"format":"4DX","title":"Top Gun (1986)","screenings":55,"gbo_k":3.1,"psa":56.0,"occ":7.6,"release_date":"2026-05-14"},
+  {"format":"SX","title":"Colony","screenings":190,"gbo_k":60.0,"psa":316.0,"occ":22.7,"release_date":"2026-05-21"},
+  {"format":"SX","title":"The Devil Wears Prada 2","screenings":78,"gbo_k":26.8,"psa":344.0,"occ":26.9,"release_date":"2026-04-30"},
+  {"format":"SX","title":"Michael","screenings":113,"gbo_k":25.3,"psa":224.0,"occ":15.9,"release_date":"2026-04-23"},
+  {"format":"SX","title":"Toy Story 5","screenings":95,"gbo_k":20.1,"psa":211.0,"occ":16.0,"release_date":"2026-06-17"},
+  {"format":"SX","title":"Masters of the Universe","screenings":51,"gbo_k":15.3,"psa":300.0,"occ":26.8,"release_date":"2026-06-04"},
+  {"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":41,"gbo_k":13.0,"psa":317.0,"occ":20.6,"release_date":"2026-05-21"},
+  {"format":"SX","title":"The Super Mario Galaxy Movie","screenings":123,"gbo_k":12.1,"psa":99.0,"occ":6.5,"release_date":"2026-03-31"},
+  {"format":"SX","title":"Supergirl","screenings":43,"gbo_k":7.0,"psa":163.0,"occ":11.3,"release_date":"2026-06-24"},
+  {"format":"SX","title":"Lee Cronin's The Mummy","screenings":64,"gbo_k":6.8,"psa":106.0,"occ":8.1,"release_date":"2026-04-16"},
+  {"format":"SX","title":"Project Hail Mary","screenings":39,"gbo_k":6.6,"psa":168.0,"occ":11.3,"release_date":"2026-03-19"},
+  {"format":"SX","title":"Mortal Kombat 2","screenings":33,"gbo_k":3.6,"psa":108.0,"occ":7.3,"release_date":"2026-05-07"},
+  {"format":"SX","title":"Top Gun: Maverick (2026 Re-release)","screenings":13,"gbo_k":1.3,"psa":103.0,"occ":9.6,"release_date":"2026-05-14"},
+  {"format":"SX","title":"Top Gun (1986)","screenings":12,"gbo_k":0.6,"psa":51.0,"occ":4.8,"release_date":"2026-05-14"}
+];
+
+const ALL_TITLES = [...new Set(DATA.map(r=>r.title))];
+let selectedTitles = new Set(ALL_TITLES);
+
+// build multi-select panel
+const panel = document.getElementById('titleMselPanel');
+const allRow = document.createElement('div');
+allRow.className = 'msel-row all';
+allRow.innerHTML = `<input type="checkbox" id="msel-all" checked><label for="msel-all">전체 선택</label>`;
+panel.appendChild(allRow);
+ALL_TITLES.forEach((t,i)=>{
+  const row = document.createElement('div');
+  row.className = 'msel-row';
+  row.innerHTML = `<input type="checkbox" id="msel-${i}" data-title="${t.replace(/"/g,'&quot;')}" checked><label for="msel-${i}">${t}</label>`;
+  panel.appendChild(row);
+});
+
+function updateMselBtn(){
+  const btn = document.getElementById('titleMselBtn');
+  if (selectedTitles.size === ALL_TITLES.length) btn.textContent = `타이틀 전체 (${ALL_TITLES.length})`;
+  else if (selectedTitles.size === 0) btn.textContent = '타이틀 선택 안 함';
+  else if (selectedTitles.size <= 2) btn.textContent = [...selectedTitles].join(', ');
+  else btn.textContent = `타이틀 ${selectedTitles.size}개 선택됨`;
+}
+
+document.getElementById('titleMselBtn').addEventListener('click', (e)=>{
+  e.stopPropagation();
+  panel.classList.toggle('open');
+});
+document.addEventListener('click', (e)=>{
+  if (!document.getElementById('titleMsel').contains(e.target)) panel.classList.remove('open');
+});
+document.getElementById('msel-all').addEventListener('change', (e)=>{
+  const checked = e.target.checked;
+  panel.querySelectorAll('input[type=checkbox]:not(#msel-all)').forEach(cb=>{ cb.checked = checked; });
+  selectedTitles = checked ? new Set(ALL_TITLES) : new Set();
+  updateMselBtn();
+  renderDash();
+});
+panel.querySelectorAll('input[data-title]').forEach(cb=>{
+  cb.addEventListener('change', ()=>{
+    const t = cb.dataset.title;
+    if (cb.checked) selectedTitles.add(t); else selectedTitles.delete(t);
+    document.getElementById('msel-all').checked = selectedTitles.size === ALL_TITLES.length;
+    updateMselBtn();
+    renderDash();
+  });
+});
+
+let chart;
+const cText = '#716D63';
+const cGrid = '#E1DFD5';
+const c4dx = '#6748D6';
+const csx = '#0E8F87';
+
+function getFiltered(){
+  const f = document.getElementById('formatSel').value;
+  return DATA.filter(r => selectedTitles.has(r.title) && (f === 'all' || r.format === f));
+}
+function fmtK(v){ return '$' + v.toLocaleString(undefined,{maximumFractionDigits:1}) + 'K'; }
+
+function sortRows(rows, mode){
+  const r = [...rows];
+  if (mode === 'release') r.sort((a,b)=>new Date(a.release_date)-new Date(b.release_date));
+  else if (mode === 'psa') r.sort((a,b)=>b.psa-a.psa);
+  else if (mode === 'occ') r.sort((a,b)=>b.occ-a.occ);
+  else r.sort((a,b)=>b.gbo_k-a.gbo_k);
+  return r;
+}
+
+function renderDash(){
+  const filtered = getFiltered();
+  const sortMode = document.getElementById('sortSel').value;
+
+  const totalGbo = filtered.reduce((s,r)=>s+r.gbo_k,0);
+  const totalScr = filtered.reduce((s,r)=>s+r.screenings,0);
+  const avgPsa = filtered.length ? filtered.reduce((s,r)=>s+r.psa,0)/filtered.length : 0;
+  const avgOcc = filtered.length ? filtered.reduce((s,r)=>s+r.occ,0)/filtered.length : 0;
+  document.getElementById('kpiGbo').textContent = filtered.length ? fmtK(Math.round(totalGbo)) : '-';
+  document.getElementById('kpiScr').textContent = filtered.length ? totalScr.toLocaleString() : '-';
+  document.getElementById('kpiPsa').textContent = filtered.length ? '$' + Math.round(avgPsa) : '-';
+  document.getElementById('kpiOcc').textContent = filtered.length ? avgOcc.toFixed(1) + '%' : '-';
+
+  const chartRows = sortRows(filtered, sortMode);
+  const labels = chartRows.map(r => r.title + ' (' + r.format + (sortMode==='release' ? ', '+r.release_date.slice(0,7) : '') + ')');
+  const colors = chartRows.map(r=> r.format==='4DX' ? c4dx : csx);
+  const metricKey = sortMode === 'psa' ? 'psa' : sortMode === 'occ' ? 'occ' : 'gbo_k';
+  const values = chartRows.map(r=>r[metricKey]);
+  const valueLabel = metricKey === 'psa' ? 'PSA ($)' : metricKey === 'occ' ? 'OCC (%)' : 'GBO ($K)';
+
+  document.getElementById('chartWrap').style.height = Math.max(280, chartRows.length*38+70)+'px';
+
+  if (chart) chart.destroy();
+  chart = new Chart(document.getElementById('gboChart'), {
+    type:'bar',
+    data:{ labels, datasets:[{ label:valueLabel, data:values, backgroundColor:colors, borderRadius:4 }] },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(c)=> valueLabel+': '+(metricKey==='occ'? c.raw+'%' : metricKey==='psa' ? '$'+c.raw : '$'+c.raw+'K') } } },
+      scales:{
+        x:{ ticks:{ color:cText, callback:(v)=> metricKey==='occ' ? v+'%' : metricKey==='psa' ? '$'+v : '$'+v+'K' }, grid:{ color:cGrid } },
+        y:{ ticks:{ color:cText, font:{size:11} }, grid:{ display:false } }
+      }
+    }
+  });
+
+  const tableRows = sortRows(filtered, sortMode);
+  const body = document.getElementById('dashBody');
+  body.innerHTML='';
+  tableRows.forEach(r=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td>'+r.title+'</td>'+
+      '<td><span class="fmt-pill '+(r.format==='4DX'?'f4dx':'fsx')+'">'+r.format+'</span></td>'+
+      '<td>'+r.release_date+'</td>'+
+      '<td>'+r.screenings.toLocaleString()+'</td>'+
+      '<td>'+fmtK(r.gbo_k)+'</td>'+
+      '<td>$'+Math.round(r.psa)+'</td>'+
+      '<td>'+r.occ+'%</td>';
+    body.appendChild(tr);
+  });
+}
+updateMselBtn();
+document.getElementById('formatSel').addEventListener('change', renderDash);
+document.getElementById('sortSel').addEventListener('change', renderDash);
+renderDash();
+
+
+// ---------- generic per-country dashboard factory ----------
+function initCountryDashboard(prefix, DATA){
+  const ALL_TITLES = [...new Set(DATA.map(r=>r.title))];
+  let selectedTitles = new Set(ALL_TITLES);
+  const panel = document.getElementById(prefix+'-titleMselPanel');
+  const btn = document.getElementById(prefix+'-titleMselBtn');
+  const allRow = document.createElement('div');
+  allRow.className = 'msel-row all';
+  allRow.innerHTML = '<input type="checkbox" id="'+prefix+'-msel-all" checked><label for="'+prefix+'-msel-all">전체 선택</label>';
+  panel.appendChild(allRow);
+  ALL_TITLES.forEach((t,i)=>{
+    const row = document.createElement('div');
+    row.className = 'msel-row';
+    row.innerHTML = '<input type="checkbox" id="'+prefix+'-msel-'+i+'" data-title="'+t.replace(/"/g,'&quot;')+'" checked><label for="'+prefix+'-msel-'+i+'">'+t+'</label>';
+    panel.appendChild(row);
+  });
+
+  function updateMselBtn(){
+    if (selectedTitles.size === ALL_TITLES.length) btn.textContent = '타이틀 전체 (' + ALL_TITLES.length + ')';
+    else if (selectedTitles.size === 0) btn.textContent = '타이틀 선택 안 함';
+    else if (selectedTitles.size <= 2) btn.textContent = [...selectedTitles].join(', ');
+    else btn.textContent = '타이틀 ' + selectedTitles.size + '개 선택됨';
+  }
+
+  btn.addEventListener('click', (e)=>{ e.stopPropagation(); panel.classList.toggle('open'); });
+  document.addEventListener('click', (e)=>{
+    if (!document.getElementById(prefix+'-titleMsel').contains(e.target)) panel.classList.remove('open');
+  });
+  document.getElementById(prefix+'-msel-all').addEventListener('change', (e)=>{
+    const checked = e.target.checked;
+    panel.querySelectorAll('input[type=checkbox]:not(#'+prefix+'-msel-all)').forEach(cb=>{ cb.checked = checked; });
+    selectedTitles = checked ? new Set(ALL_TITLES) : new Set();
+    updateMselBtn();
+    renderDash();
+  });
+  panel.querySelectorAll('input[data-title]').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      const t = cb.dataset.title;
+      if (cb.checked) selectedTitles.add(t); else selectedTitles.delete(t);
+      document.getElementById(prefix+'-msel-all').checked = selectedTitles.size === ALL_TITLES.length;
+      updateMselBtn();
+      renderDash();
+    });
+  });
+
+  let chart;
+  const cText = '#716D63';
+  const cGrid = '#E1DFD5';
+  const c4dx = '#6748D6';
+  const csx = '#0E8F87';
+
+  function getFiltered(){
+    const f = document.getElementById(prefix+'-formatSel').value;
+    return DATA.filter(r => selectedTitles.has(r.title) && (f === 'all' || r.format === f));
+  }
+  function fmtK(v){ return '$' + v.toLocaleString(undefined,{maximumFractionDigits:1}) + 'K'; }
+  function sortRows(rows, mode){
+    const r = [...rows];
+    if (mode === 'release') r.sort((a,b)=>new Date(a.release_date)-new Date(b.release_date));
+    else if (mode === 'psa') r.sort((a,b)=>b.psa-a.psa);
+    else if (mode === 'occ') r.sort((a,b)=>b.occ-a.occ);
+    else r.sort((a,b)=>b.gbo_k-a.gbo_k);
+    return r;
+  }
+
+  function renderDash(){
+    const filtered = getFiltered();
+    const sortMode = document.getElementById(prefix+'-sortSel').value;
+
+    const totalGbo = filtered.reduce((s,r)=>s+r.gbo_k,0);
+    const totalScr = filtered.reduce((s,r)=>s+r.screenings,0);
+    const avgPsa = filtered.length ? filtered.reduce((s,r)=>s+r.psa,0)/filtered.length : 0;
+    const avgOcc = filtered.length ? filtered.reduce((s,r)=>s+r.occ,0)/filtered.length : 0;
+    document.getElementById(prefix+'-kpiGbo').textContent = filtered.length ? fmtK(Math.round(totalGbo)) : '-';
+    document.getElementById(prefix+'-kpiScr').textContent = filtered.length ? totalScr.toLocaleString() : '-';
+    document.getElementById(prefix+'-kpiPsa').textContent = filtered.length ? '$' + Math.round(avgPsa) : '-';
+    document.getElementById(prefix+'-kpiOcc').textContent = filtered.length ? avgOcc.toFixed(1) + '%' : '-';
+
+    const chartRows = sortRows(filtered, sortMode);
+    const labels = chartRows.map(r => r.title + ' (' + r.format + (sortMode==='release' ? ', '+r.release_date.slice(0,7) : '') + ')');
+    const colors = chartRows.map(r=> r.format==='4DX' ? c4dx : csx);
+    const metricKey = sortMode === 'psa' ? 'psa' : sortMode === 'occ' ? 'occ' : 'gbo_k';
+    const values = chartRows.map(r=>r[metricKey]);
+    const valueLabel = metricKey === 'psa' ? 'PSA ($)' : metricKey === 'occ' ? 'OCC (%)' : 'GBO ($K)';
+
+    document.getElementById(prefix+'-chartWrap').style.height = Math.max(280, chartRows.length*38+70)+'px';
+
+    if (chart) chart.destroy();
+    chart = new Chart(document.getElementById(prefix+'-gboChart'), {
+      type:'bar',
+      data:{ labels, datasets:[{ label:valueLabel, data:values, backgroundColor:colors, borderRadius:4 }] },
+      options:{
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(c)=> valueLabel+': '+(metricKey==='occ'? c.raw+'%' : metricKey==='psa' ? '$'+c.raw : '$'+c.raw+'K') } } },
+        scales:{
+          x:{ ticks:{ color:cText, callback:(v)=> metricKey==='occ' ? v+'%' : metricKey==='psa' ? '$'+v : '$'+v+'K' }, grid:{ color:cGrid } },
+          y:{ ticks:{ color:cText, font:{size:11} }, grid:{ display:false } }
+        }
+      }
+    });
+
+    const tableRows = sortRows(filtered, sortMode);
+    const body = document.getElementById(prefix+'-dashBody');
+    body.innerHTML='';
+    tableRows.forEach(r=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>'+r.title+'</td>'+
+        '<td><span class="fmt-pill '+(r.format==='4DX'?'f4dx':'fsx')+'">'+r.format+'</span></td>'+
+        '<td>'+r.release_date+'</td>'+
+        '<td>'+r.screenings.toLocaleString()+'</td>'+
+        '<td>'+fmtK(r.gbo_k)+'</td>'+
+        '<td>$'+Math.round(r.psa)+'</td>'+
+        '<td>'+r.occ+'%</td>';
+      body.appendChild(tr);
+    });
+  }
+  updateMselBtn();
+  document.getElementById(prefix+'-formatSel').addEventListener('change', renderDash);
+  document.getElementById(prefix+'-sortSel').addEventListener('change', renderDash);
+  renderDash();
+}
+
+initCountryDashboard('kr', [{"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":3035,"gbo_k":1368.6,"psa":451.0,"occ":35.2,"release_date":"2026-04-15"},{"format":"4DX","title":"Colony","screenings":2831,"gbo_k":717.7,"psa":254.0,"occ":18.3,"release_date":"2026-05-21"},{"format":"4DX","title":"Salmokji: Whispering Water","screenings":2310,"gbo_k":509.3,"psa":220.0,"occ":15.5,"release_date":"2026-03-24"},{"format":"4DX","title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","screenings":1708,"gbo_k":419.3,"psa":245.0,"occ":18.4,"release_date":"2025-08-22"},{"format":"4DX","title":"Toy Story 5","screenings":2411,"gbo_k":404.1,"psa":168.0,"occ":13.0,"release_date":"2026-06-17"},{"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":1323,"gbo_k":316.6,"psa":239.0,"occ":17.3,"release_date":"2026-05-19"},{"format":"4DX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":666,"gbo_k":290.6,"psa":436.0,"occ":20.2,"release_date":"2026-06-03"},{"format":"4DX","title":"Top Gun: Maverick (2026 Re-release)","screenings":600,"gbo_k":174.2,"psa":290.0,"occ":20.5,"release_date":"2026-05-13"},{"format":"4DX","title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","screenings":527,"gbo_k":97.0,"psa":184.0,"occ":13.0,"release_date":"2026-04-22"},{"format":"4DX","title":"Attack on Titan the Movie: The Last Attack (2026 Re-release)","screenings":507,"gbo_k":76.5,"psa":151.0,"occ":11.5,"release_date":"2026-03-20"},{"format":"4DX","title":"Michael","screenings":649,"gbo_k":75.9,"psa":117.0,"occ":9.0,"release_date":"2026-05-13"},{"format":"4DX","title":"Backrooms","screenings":404,"gbo_k":67.1,"psa":166.0,"occ":12.9,"release_date":"2026-06-06"},{"format":"4DX","title":"Top Gun (1986)","screenings":350,"gbo_k":57.0,"psa":163.0,"occ":11.5,"release_date":"2026-05-13"},{"format":"4DX","title":"Project Hail Mary","screenings":243,"gbo_k":44.0,"psa":181.0,"occ":12.9,"release_date":"2026-03-18"},{"format":"4DX","title":"Supergirl","screenings":673,"gbo_k":42.7,"psa":63.0,"occ":5.0,"release_date":"2026-06-24"},{"format":"4DX","title":"Haikyu!! The Movie: Decisive Battle at the Garbage Dump (2026 Re-release)","screenings":337,"gbo_k":40.3,"psa":119.0,"occ":9.6,"release_date":"2026-04-15"},{"format":"4DX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":56,"gbo_k":24.0,"psa":429.0,"occ":17.1,"release_date":"2026-04-22"},{"format":"4DX","title":"That Time I Got Reincarnated as a Slime the Movie","screenings":176,"gbo_k":18.3,"psa":104.0,"occ":8.7,"release_date":"2026-06-10"},{"format":"4DX","title":"ENHYPEN : IMMERSION IN CINEMAS VR","screenings":80,"gbo_k":11.7,"psa":146.0,"occ":11.2,"release_date":"2026-04-08"},{"format":"SX","title":"Colony","screenings":2700,"gbo_k":820.0,"psa":304.0,"occ":16.9,"release_date":"2026-05-20"},{"format":"SX","title":"The Super Mario Galaxy Movie","screenings":1459,"gbo_k":641.5,"psa":440.0,"occ":25.9,"release_date":"2026-04-15"},{"format":"SX","title":"Salmokji: Whispering Water","screenings":2252,"gbo_k":582.0,"psa":258.0,"occ":12.6,"release_date":"2026-03-24"},{"format":"SX","title":"Michael","screenings":1553,"gbo_k":535.8,"psa":345.0,"occ":18.7,"release_date":"2026-05-07"},{"format":"SX","title":"Toy Story 5","screenings":2203,"gbo_k":508.0,"psa":231.0,"occ":13.4,"release_date":"2026-06-17"},{"format":"SX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":661,"gbo_k":382.3,"psa":578.0,"occ":19.3,"release_date":"2026-06-01"},{"format":"SX","title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","screenings":1240,"gbo_k":371.6,"psa":300.0,"occ":16.3,"release_date":"2026-03-25"},{"format":"SX","title":"Project Hail Mary","screenings":895,"gbo_k":269.9,"psa":302.0,"occ":15.2,"release_date":"2026-03-18"},{"format":"SX","title":"The Devil Wears Prada 2","screenings":725,"gbo_k":251.9,"psa":347.0,"occ":16.7,"release_date":"2026-04-29"},{"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":605,"gbo_k":204.7,"psa":338.0,"occ":19.4,"release_date":"2026-05-19"},{"format":"SX","title":"Top Gun: Maverick (2026 Re-release)","screenings":509,"gbo_k":159.4,"psa":313.0,"occ":16.7,"release_date":"2026-05-13"},{"format":"SX","title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","screenings":326,"gbo_k":63.1,"psa":194.0,"occ":10.2,"release_date":"2026-04-22"},{"format":"SX","title":"Top Gun (1986)","screenings":326,"gbo_k":62.8,"psa":193.0,"occ":10.8,"release_date":"2026-05-13"},{"format":"SX","title":"Supergirl","screenings":679,"gbo_k":58.4,"psa":86.0,"occ":5.5,"release_date":"2026-06-23"},{"format":"SX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":79,"gbo_k":53.0,"psa":671.0,"occ":20.6,"release_date":"2026-04-17"},{"format":"SX","title":"ENHYPEN : IMMERSION IN CINEMAS VR","screenings":76,"gbo_k":11.8,"psa":155.0,"occ":8.9,"release_date":"2026-04-08"}]);
+initCountryDashboard('tw', [{"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":698,"gbo_k":552.5,"psa":792.0,"occ":33.3,"release_date":"2026-03-31"},{"format":"4DX","title":"Toy Story 5","screenings":232,"gbo_k":244.1,"psa":1052.0,"occ":43.2,"release_date":"2026-06-17"},{"format":"4DX","title":"Colony","screenings":371,"gbo_k":227.5,"psa":613.0,"occ":29.5,"release_date":"2026-05-22"},{"format":"4DX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":245,"gbo_k":174.2,"psa":711.0,"occ":23.1,"release_date":"2026-04-17"},{"format":"4DX","title":"Detective Conan: Fallen Angel of the Highway","screenings":100,"gbo_k":170.6,"psa":1706.0,"occ":81.5,"release_date":"2026-06-24"},{"format":"4DX","title":"Michael","screenings":326,"gbo_k":126.7,"psa":389.0,"occ":18.3,"release_date":"2026-04-22"},{"format":"4DX","title":"Lee Cronin's The Mummy","screenings":127,"gbo_k":103.7,"psa":817.0,"occ":38.4,"release_date":"2026-04-15"},{"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":220,"gbo_k":97.3,"psa":442.0,"occ":17.7,"release_date":"2026-05-20"},{"format":"4DX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":87,"gbo_k":94.6,"psa":1087.0,"occ":36.5,"release_date":"2026-06-05"},{"format":"4DX","title":"Top Gun: Maverick (2026 Re-release)","screenings":107,"gbo_k":47.6,"psa":444.0,"occ":21.3,"release_date":"2026-05-14"},{"format":"4DX","title":"Project Hail Mary","screenings":52,"gbo_k":40.0,"psa":769.0,"occ":32.8,"release_date":"2026-03-11"},{"format":"4DX","title":"Top Gun (1986)","screenings":128,"gbo_k":31.2,"psa":244.0,"occ":11.8,"release_date":"2026-05-14"},{"format":"4DX","title":"Hoppers","screenings":52,"gbo_k":29.6,"psa":569.0,"occ":26.2,"release_date":"2026-03-11"},{"format":"4DX","title":"Mortal Kombat 2","screenings":129,"gbo_k":23.4,"psa":182.0,"occ":8.7,"release_date":"2026-04-28"},{"format":"4DX","title":"Backrooms","screenings":49,"gbo_k":19.3,"psa":393.0,"occ":18.3,"release_date":"2026-06-03"},{"format":"4DX","title":"Masters of the Universe","screenings":77,"gbo_k":13.6,"psa":177.0,"occ":8.6,"release_date":"2026-06-03"},{"format":"4DX","title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","screenings":24,"gbo_k":13.4,"psa":557.0,"occ":24.6,"release_date":"2026-04-10"},{"format":"4DX","title":"The Amazing Digital Circus: The Last Act","screenings":12,"gbo_k":13.3,"psa":1106.0,"occ":42.6,"release_date":"2026-06-05"},{"format":"4DX","title":"Supergirl","screenings":27,"gbo_k":11.7,"psa":433.0,"occ":16.5,"release_date":"2026-06-23"},{"format":"4DX","title":"Gintama: Yoshiwara in Flames","screenings":7,"gbo_k":5.0,"psa":720.0,"occ":30.7,"release_date":"2026-06-10"},{"format":"SX","title":"The Super Mario Galaxy Movie","screenings":867,"gbo_k":465.7,"psa":537.0,"occ":15.3,"release_date":"2026-04-01"},{"format":"SX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":507,"gbo_k":392.6,"psa":774.0,"occ":15.0,"release_date":"2026-04-17"},{"format":"SX","title":"Colony","screenings":730,"gbo_k":330.5,"psa":453.0,"occ":15.4,"release_date":"2026-05-22"},{"format":"SX","title":"The Devil Wears Prada 2","screenings":511,"gbo_k":212.2,"psa":415.0,"occ":12.3,"release_date":"2026-04-28"},{"format":"SX","title":"Toy Story 5","screenings":443,"gbo_k":210.3,"psa":475.0,"occ":13.5,"release_date":"2026-06-17"},{"format":"SX","title":"Detective Conan: Fallen Angel of the Highway","screenings":157,"gbo_k":124.0,"psa":790.0,"occ":25.7,"release_date":"2026-06-24"},{"format":"SX","title":"Michael","screenings":280,"gbo_k":108.1,"psa":386.0,"occ":11.7,"release_date":"2026-04-22"},{"format":"SX","title":"Project Hail Mary","screenings":237,"gbo_k":106.1,"psa":448.0,"occ":12.8,"release_date":"2026-03-11"},{"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":411,"gbo_k":95.5,"psa":232.0,"occ":6.3,"release_date":"2026-05-20"},{"format":"SX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":143,"gbo_k":94.3,"psa":659.0,"occ":15.0,"release_date":"2026-06-05"},{"format":"SX","title":"Lee Cronin's The Mummy","screenings":185,"gbo_k":59.2,"psa":320.0,"occ":9.1,"release_date":"2026-04-15"},{"format":"SX","title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","screenings":130,"gbo_k":36.2,"psa":279.0,"occ":8.9,"release_date":"2026-04-10"},{"format":"SX","title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","screenings":21,"gbo_k":34.2,"psa":1627.0,"occ":33.4,"release_date":"2026-02-20"},{"format":"SX","title":"Supergirl","screenings":183,"gbo_k":32.8,"psa":179.0,"occ":6.4,"release_date":"2026-06-23"},{"format":"SX","title":"Mortal Kombat 2","screenings":189,"gbo_k":27.3,"psa":144.0,"occ":4.4,"release_date":"2026-05-07"},{"format":"SX","title":"Top Gun: Maverick (2026 Re-release)","screenings":115,"gbo_k":27.0,"psa":235.0,"occ":7.0,"release_date":"2026-05-14"},{"format":"SX","title":"Masters of the Universe","screenings":149,"gbo_k":17.1,"psa":115.0,"occ":4.1,"release_date":"2026-06-03"},{"format":"SX","title":"Top Gun (1986)","screenings":94,"gbo_k":16.5,"psa":176.0,"occ":5.3,"release_date":"2026-05-14"},{"format":"SX","title":"Stray Kids: The dominATE Experience","screenings":9,"gbo_k":1.6,"psa":177.0,"occ":5.1,"release_date":"2026-03-13"}]);
+initCountryDashboard('au', [{"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":798,"gbo_k":560.4,"psa":702.0,"occ":29.7,"release_date":"2026-04-01"},{"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":366,"gbo_k":130.3,"psa":356.0,"occ":14.2,"release_date":"2026-05-21"},{"format":"4DX","title":"Project Hail Mary","screenings":233,"gbo_k":124.3,"psa":534.0,"occ":23.0,"release_date":"2026-03-17"},{"format":"4DX","title":"Michael","screenings":245,"gbo_k":105.4,"psa":430.0,"occ":17.7,"release_date":"2026-04-22"},{"format":"4DX","title":"Scary Movie","screenings":192,"gbo_k":71.7,"psa":373.0,"occ":14.0,"release_date":"2026-06-04"},{"format":"4DX","title":"Toy Story 5","screenings":235,"gbo_k":62.4,"psa":266.0,"occ":15.2,"release_date":"2026-06-17"},{"format":"4DX","title":"Mortal Kombat 2","screenings":191,"gbo_k":59.1,"psa":309.0,"occ":14.0,"release_date":"2026-05-07"},{"format":"4DX","title":"Masters of the Universe","screenings":201,"gbo_k":50.6,"psa":252.0,"occ":11.0,"release_date":"2026-06-03"},{"format":"4DX","title":"Lee Cronin's The Mummy","screenings":116,"gbo_k":46.1,"psa":397.0,"occ":15.6,"release_date":"2026-04-16"},{"format":"4DX","title":"Backrooms","screenings":81,"gbo_k":44.5,"psa":549.0,"occ":22.9,"release_date":"2026-05-28"},{"format":"4DX","title":"Colony","screenings":105,"gbo_k":31.8,"psa":303.0,"occ":13.2,"release_date":"2026-06-11"},{"format":"4DX","title":"Top Gun: Maverick (2026 Re-release)","screenings":35,"gbo_k":29.6,"psa":844.0,"occ":31.8,"release_date":"2026-05-13"},{"format":"4DX","title":"Top Gun (1986)","screenings":39,"gbo_k":26.7,"psa":685.0,"occ":28.4,"release_date":"2026-05-13"},{"format":"4DX","title":"Salmokji: Whispering Water","screenings":46,"gbo_k":14.6,"psa":318.0,"occ":12.4,"release_date":"2026-04-23"},{"format":"4DX","title":"Hoppers","screenings":29,"gbo_k":9.1,"psa":314.0,"occ":11.4,"release_date":"2026-03-20"},{"format":"4DX","title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","screenings":40,"gbo_k":7.7,"psa":192.0,"occ":8.0,"release_date":"2026-05-14"},{"format":"4DX","title":"That Time I Got Reincarnated as a Slime the Movie","screenings":20,"gbo_k":1.2,"psa":62.0,"occ":2.5,"release_date":"2026-04-30"},{"format":"SX","title":"The Super Mario Galaxy Movie","screenings":524,"gbo_k":342.2,"psa":653.0,"occ":28.9,"release_date":"2026-04-01"},{"format":"SX","title":"Project Hail Mary","screenings":277,"gbo_k":174.1,"psa":629.0,"occ":24.0,"release_date":"2026-03-14"},{"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":433,"gbo_k":155.3,"psa":359.0,"occ":13.8,"release_date":"2026-05-21"},{"format":"SX","title":"The Devil Wears Prada 2","screenings":197,"gbo_k":126.1,"psa":640.0,"occ":22.2,"release_date":"2026-04-29"},{"format":"SX","title":"Masters of the Universe","screenings":284,"gbo_k":107.3,"psa":378.0,"occ":14.9,"release_date":"2026-06-04"},{"format":"SX","title":"Mortal Kombat 2","screenings":180,"gbo_k":84.9,"psa":472.0,"occ":17.9,"release_date":"2026-05-07"},{"format":"SX","title":"Colony","screenings":63,"gbo_k":46.2,"psa":734.0,"occ":25.0,"release_date":"2026-06-11"},{"format":"SX","title":"Michael","screenings":69,"gbo_k":41.4,"psa":600.0,"occ":29.2,"release_date":"2026-04-22"},{"format":"SX","title":"Lee Cronin's The Mummy","screenings":43,"gbo_k":26.9,"psa":626.0,"occ":20.7,"release_date":"2026-04-16"},{"format":"SX","title":"Toy Story 5","screenings":44,"gbo_k":19.7,"psa":447.0,"occ":28.7,"release_date":"2026-06-18"},{"format":"SX","title":"Top Gun: Maverick (2026 Re-release)","screenings":18,"gbo_k":6.7,"psa":369.0,"occ":14.4,"release_date":"2026-05-13"}]);
+initCountryDashboard('vn', [{"format":"4DX","title":"Doraemon: Nobita and the New Castle of the Undersea Devil","screenings":621,"gbo_k":79.5,"psa":128.0,"occ":19.0,"release_date":"2026-05-15"},{"format":"4DX","title":"Phi Phong: The Blood Demon","screenings":332,"gbo_k":27.2,"psa":82.0,"occ":12.4,"release_date":"2026-04-14"},{"format":"4DX","title":"Colony","screenings":186,"gbo_k":22.7,"psa":122.0,"occ":14.2,"release_date":"2026-06-09"},{"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":291,"gbo_k":20.2,"psa":69.0,"occ":9.7,"release_date":"2026-04-01"},{"format":"4DX","title":"Lau Chu Hoa","screenings":170,"gbo_k":17.0,"psa":100.0,"occ":15.6,"release_date":"2026-06-09"},{"format":"4DX","title":"Mortal Kombat 2","screenings":205,"gbo_k":15.1,"psa":74.0,"occ":8.5,"release_date":"2026-05-08"},{"format":"4DX","title":"Lee Cronin's The Mummy","screenings":118,"gbo_k":10.9,"psa":92.0,"occ":11.0,"release_date":"2026-04-16"},{"format":"4DX","title":"Toy Story 5","screenings":139,"gbo_k":10.5,"psa":76.0,"occ":9.8,"release_date":"2026-06-17"},{"format":"4DX","title":"Michael","screenings":114,"gbo_k":7.4,"psa":65.0,"occ":8.2,"release_date":"2026-04-22"},{"format":"4DX","title":"Project Hail Mary","screenings":114,"gbo_k":6.9,"psa":61.0,"occ":6.6,"release_date":"2026-03-19"},{"format":"4DX","title":"Top Gun: Maverick (2026 Re-release)","screenings":86,"gbo_k":3.7,"psa":43.0,"occ":6.1,"release_date":"2026-05-13"},{"format":"4DX","title":"Salmokji: Whispering Water","screenings":50,"gbo_k":3.2,"psa":65.0,"occ":7.1,"release_date":"2026-05-13"},{"format":"4DX","title":"Ready or Not 2: Here I Come","screenings":103,"gbo_k":2.8,"psa":27.0,"occ":4.0,"release_date":"2026-04-10"},{"format":"4DX","title":"Supergirl","screenings":64,"gbo_k":2.6,"psa":41.0,"occ":4.5,"release_date":"2026-06-24"},{"format":"4DX","title":"Masters of the Universe","screenings":55,"gbo_k":2.4,"psa":43.0,"occ":5.3,"release_date":"2026-06-05"},{"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":48,"gbo_k":2.4,"psa":50.0,"occ":5.5,"release_date":"2026-05-22"},{"format":"4DX","title":"Hoppers","screenings":5,"gbo_k":0.1,"psa":20.0,"occ":3.5,"release_date":"2026-03-07"},{"format":"SX","title":"Colony","screenings":254,"gbo_k":32.9,"psa":130.0,"occ":11.4,"release_date":"2026-06-09"},{"format":"SX","title":"Mortal Kombat 2","screenings":225,"gbo_k":20.6,"psa":92.0,"occ":7.8,"release_date":"2026-05-08"},{"format":"SX","title":"Lee Cronin's The Mummy","screenings":145,"gbo_k":17.8,"psa":123.0,"occ":11.2,"release_date":"2026-04-16"},{"format":"SX","title":"Michael","screenings":155,"gbo_k":15.0,"psa":97.0,"occ":8.5,"release_date":"2026-04-22"},{"format":"SX","title":"Toy Story 5","screenings":159,"gbo_k":14.4,"psa":91.0,"occ":8.4,"release_date":"2026-06-17"},{"format":"SX","title":"The Super Mario Galaxy Movie","screenings":262,"gbo_k":13.7,"psa":52.0,"occ":4.7,"release_date":"2026-04-01"},{"format":"SX","title":"Project Hail Mary","screenings":142,"gbo_k":10.5,"psa":74.0,"occ":6.4,"release_date":"2026-03-19"},{"format":"SX","title":"Salmokji: Whispering Water","screenings":102,"gbo_k":7.3,"psa":71.0,"occ":6.1,"release_date":"2026-05-13"},{"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":162,"gbo_k":6.7,"psa":41.0,"occ":3.8,"release_date":"2026-05-22"},{"format":"SX","title":"Masters of the Universe","screenings":88,"gbo_k":5.2,"psa":60.0,"occ":5.4,"release_date":"2026-06-05"},{"format":"SX","title":"Top Gun: Maverick (2026 Re-release)","screenings":98,"gbo_k":4.5,"psa":46.0,"occ":4.3,"release_date":"2026-05-13"},{"format":"SX","title":"Supergirl","screenings":94,"gbo_k":3.8,"psa":41.0,"occ":3.6,"release_date":"2026-06-24"}]);
+initCountryDashboard('th', [{"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":129,"gbo_k":31.8,"psa":247.0,"occ":15.8,"release_date":"2026-04-02"},{"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":98,"gbo_k":19.7,"psa":201.0,"occ":11.6,"release_date":"2026-05-21"},{"format":"4DX","title":"Toy Story 5","screenings":83,"gbo_k":18.0,"psa":217.0,"occ":13.7,"release_date":"2026-06-17"},{"format":"4DX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":16,"gbo_k":12.6,"psa":785.0,"occ":46.5,"release_date":"2026-06-10"},{"format":"4DX","title":"Lee Cronin's The Mummy","screenings":86,"gbo_k":11.4,"psa":132.0,"occ":8.1,"release_date":"2026-04-15"},{"format":"4DX","title":"Colony","screenings":46,"gbo_k":8.5,"psa":185.0,"occ":12.0,"release_date":"2026-06-01"},{"format":"4DX","title":"Supergirl","screenings":49,"gbo_k":5.9,"psa":120.0,"occ":7.8,"release_date":"2026-06-25"},{"format":"4DX","title":"ENHYPEN : IMMERSION IN CINEMAS VR","screenings":14,"gbo_k":3.8,"psa":274.0,"occ":17.9,"release_date":"2026-05-13"},{"format":"4DX","title":"Masters of the Universe","screenings":42,"gbo_k":3.5,"psa":84.0,"occ":5.4,"release_date":"2026-06-03"},{"format":"4DX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":15,"gbo_k":3.2,"psa":211.0,"occ":13.6,"release_date":"2026-04-22"},{"format":"4DX","title":"Detective Conan: Fallen Angel of the Highway","screenings":10,"gbo_k":2.7,"psa":269.0,"occ":15.5,"release_date":"2026-04-25"},{"format":"SX","title":"Colony","screenings":100,"gbo_k":23.0,"psa":230.0,"occ":8.9,"release_date":"2026-06-01"},{"format":"SX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":11,"gbo_k":19.4,"psa":1760.0,"occ":42.4,"release_date":"2026-06-10"},{"format":"SX","title":"Toy Story 5","screenings":55,"gbo_k":16.8,"psa":306.0,"occ":11.5,"release_date":"2026-06-17"},{"format":"SX","title":"The Devil Wears Prada 2","screenings":39,"gbo_k":15.5,"psa":397.0,"occ":14.9,"release_date":"2026-04-30"},{"format":"SX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":10,"gbo_k":14.8,"psa":1479.0,"occ":38.8,"release_date":"2026-04-22"},{"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":69,"gbo_k":13.1,"psa":190.0,"occ":6.8,"release_date":"2026-05-21"},{"format":"SX","title":"The Super Mario Galaxy Movie","screenings":87,"gbo_k":11.2,"psa":128.0,"occ":5.0,"release_date":"2026-04-02"},{"format":"SX","title":"Lee Cronin's The Mummy","screenings":56,"gbo_k":9.6,"psa":171.0,"occ":6.5,"release_date":"2026-04-15"},{"format":"SX","title":"Supergirl","screenings":46,"gbo_k":4.3,"psa":94.0,"occ":3.6,"release_date":"2026-06-25"},{"format":"SX","title":"ENHYPEN : IMMERSION IN CINEMAS VR","screenings":9,"gbo_k":1.8,"psa":197.0,"occ":5.2,"release_date":"2026-05-13"}]);
+
+// ---------- chapter navigation ----------
+document.querySelectorAll('.chapter-item').forEach(li=>{
+  li.addEventListener('click', ()=>{
+    document.querySelectorAll('.chapter-item').forEach(x=>x.classList.remove('active'));
+    li.classList.add('active');
+    const id = li.dataset.chapter;
+    document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+    document.querySelector('.chapter[data-chapter="'+id+'"]').classList.add('active');
+  });
+});
+
+// ---------- drag-to-reorder chapters ----------
+let dragEl = null;
+document.querySelectorAll('.chapter-item').forEach(li=>{
+  li.addEventListener('dragstart', ()=>{ dragEl = li; setTimeout(()=>li.classList.add('dragging'),0); });
+  li.addEventListener('dragend', ()=>{ li.classList.remove('dragging'); });
+});
+const chapterList = document.getElementById('chapterList');
+chapterList.addEventListener('dragover', (e)=>{
+  e.preventDefault();
+  const after = getDragAfterElement(chapterList, e.clientY, e.clientX);
+  if (!dragEl) return;
+  if (after == null) chapterList.appendChild(dragEl);
+  else chapterList.insertBefore(dragEl, after);
+});
+function getDragAfterElement(container, y, x){
+  const horizontal = container.matches ? getComputedStyle(container).flexDirection === 'row' : false;
+  const els = [...container.querySelectorAll('.chapter-item:not(.dragging)')];
+  return els.reduce((closest, child)=>{
+    const box = child.getBoundingClientRect();
+    const offset = horizontal ? x - box.left - box.width/2 : y - box.top - box.height/2;
+    if (offset < 0 && offset > closest.offset) return { offset, element: child };
+    else return closest;
+  }, { offset: -Infinity }).element;
+}
+
+// ---------- edit mode (soft PIN gate, client-side only — see chat notes) ----------
+const EDIT_PIN = '4dx2026';   // change this to whatever PIN you want
+const EDITABLE_SELECTOR = 'header.hero h1, .kpi .value, .kpi .label, .section-head h2, .section-head .eyebrow, .tier .tag, .tier h3, .tier p, table.detail td, table.detail th, .footnote-text, footer .wrap';
+let editing = false;
+
+function setEditing(on){
+  editing = on;
+  document.querySelectorAll(EDITABLE_SELECTOR).forEach(el => el.setAttribute('contenteditable', on ? 'true' : 'false'));
+  document.getElementById('editBar').classList.toggle('active', on);
+  document.getElementById('editToggleBtn').textContent = on ? '편집 종료' : '편집';
+  document.getElementById('saveBtn').style.display = on ? 'inline-flex' : 'none';
+}
+
+document.getElementById('editToggleBtn').addEventListener('click', () => {
+  if (!editing) {
+    document.getElementById('pinError').style.display = 'none';
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinOverlay').style.display = 'flex';
+    document.getElementById('pinInput').focus();
+  } else {
+    setEditing(false);
+  }
+});
+
+function tryPin(){
+  const pin = document.getElementById('pinInput').value;
+  if (pin === EDIT_PIN) {
+    document.getElementById('pinOverlay').style.display = 'none';
+    setEditing(true);
+  } else {
+    document.getElementById('pinError').style.display = 'block';
+  }
+}
+document.getElementById('pinSubmit').addEventListener('click', tryPin);
+document.getElementById('pinInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryPin(); });
+document.getElementById('pinCancel').addEventListener('click', () => {
+  document.getElementById('pinOverlay').style.display = 'none';
+});
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  document.querySelectorAll(EDITABLE_SELECTOR).forEach(el => el.removeAttribute('contenteditable'));
+  document.getElementById('editBar').style.display = 'none';
+  const html = '<!doctype html>\n' + document.documentElement.outerHTML;
+  document.getElementById('editBar').style.display = 'flex';
+  document.querySelectorAll(EDITABLE_SELECTOR).forEach(el => el.setAttribute('contenteditable', 'true'));
+  const blob = new Blob([html], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'q2_malaysia_report_edited.html';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+});
+
+</script>
+</body>
+</html>
