@@ -253,6 +253,10 @@
   <li class="chapter-item" draggable="true" data-chapter="australia"><span class="drag-handle">⠿</span>Australia</li>
   <li class="chapter-item" draggable="true" data-chapter="vietnam"><span class="drag-handle">⠿</span>Vietnam</li>
   <li class="chapter-item" draggable="true" data-chapter="thailand"><span class="drag-handle">⠿</span>Thailand</li>
+  <li class="chapter-item" draggable="true" data-chapter="hongkong"><span class="drag-handle">⠿</span>Hong Kong <span style="font-size:10px; opacity:.6;">(CGV)</span></li>
+  <li class="chapter-item" draggable="true" data-chapter="macau"><span class="drag-handle">⠿</span>Macau <span style="font-size:10px; opacity:.6;">(CGV)</span></li>
+  <li class="chapter-item" draggable="true" data-chapter="indonesia"><span class="drag-handle">⠿</span>Indonesia <span style="font-size:10px; opacity:.6;">(CGV)</span></li>
+  <li class="chapter-item" draggable="true" data-chapter="turkey"><span class="drag-handle">⠿</span>Turkey <span style="font-size:10px; opacity:.6;">(CGV)</span></li>
     </ul>
     <div class="sidebar-hint">챕터를 드래그해 순서를 바꿀 수 있어요</div>
   </aside>
@@ -1209,6 +1213,430 @@
   <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Thailand 4DX / SCREENX Performance Review</div>
 </footer>
 </div>
+
+<div class="chapter" data-chapter="hongkong">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Hong Kong · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun) · CGV</div>
+    <h1>Hong Kong Q2 4DX / SCREENX Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$158.2K</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$10.65</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">–</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">$323</div></div>
+      <div class="kpi"><div class="label">최고 GBO 타이틀</div><div class="value">Avatar: Fire and Ash</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="hk-note">
+  <div class="wrap">
+    <p class="footnote-text" style="font-size:12.5px; color:var(--text-dim); line-height:1.7;">
+      <sup>*</sup> CGV 체인 데이터 기준입니다. 서술형 트렌드 분석은 아직 준비되지 않았으며, 대시보드는 원본 데이터 자동 집계입니다. 주차 구분은 원본 데이터의 자체 리포팅 구간(주 단위가 아닐 수 있음)을 그대로 사용했습니다.
+    </p>
+  </div>
+</section>
+
+<section id="hk-dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="hk-titleMsel">
+          <button type="button" class="msel-btn" id="hk-titleMselBtn">타이틀 전체</button>
+          <div class="msel-panel" id="hk-titleMselPanel"></div>
+        </div>
+        <select id="hk-formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="hk-sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="hk-kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="hk-kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="hk-kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="hk-kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="hk-chartWrap"><canvas id="hk-gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="hk-dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<section id="hk-compare">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Weekly Comparison</div>
+      <h2>타이틀별 주차 실적 비교</h2>
+    </div>
+    <div class="dash-card">
+      <div class="compare-controls">
+        <div class="msel" id="hk-cmpMsel">
+          <button type="button" class="msel-btn" id="hk-cmpMselBtn">타이틀 선택</button>
+          <div class="msel-panel" id="hk-cmpMselPanel"></div>
+        </div>
+        <select id="hk-cmpFormatSel">
+          <option value="Total">Total (4DX+SX)</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+      </div>
+      <div class="compare-hint">두 개 이상의 타이틀을 선택하면 리포팅 구간별 PSA 추이를 겹쳐서 비교할 수 있습니다. 포맷을 4DX만/SX만으로 좁히면 해당 포맷으로 상영되지 않은 타이틀은 목록에서 자동으로 숨겨집니다.</div>
+      <div style="position:relative; width:100%; height:340px;"><canvas id="hk-cmpChart"></canvas></div>
+      <p class="footnote-text" style="font-size:12px; color:var(--text-dim); margin-top:14px; line-height:1.7;">
+        <sup>*</sup> 주차 구분 — 원본 데이터에 있는 자체 리포팅 블록을 타이틀별 시간 순서대로 W1, W2…로 번호를 매겼습니다. 다른 6개국처럼 요일 기준 주차 사이클을 적용한 것이 아니므로 국가 간 직접 비교에는 주의가 필요합니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Hong Kong 4DX / SCREENX Performance Review (CGV)</div>
+</footer>
+</div>
+
+<div class="chapter" data-chapter="macau">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Macau · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun) · CGV</div>
+    <h1>Macau Q2 4DX / SCREENX Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$74.0K</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$18.25</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">$114</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">–</div></div>
+      <div class="kpi"><div class="label">최고 GBO 타이틀</div><div class="value">Avatar: Fire and Ash</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="mo-note">
+  <div class="wrap">
+    <p class="footnote-text" style="font-size:12.5px; color:var(--text-dim); line-height:1.7;">
+      <sup>*</sup> CGV 체인 데이터 기준입니다. 서술형 트렌드 분석은 아직 준비되지 않았으며, 대시보드는 원본 데이터 자동 집계입니다. 주차 구분은 원본 데이터의 자체 리포팅 구간(주 단위가 아닐 수 있음)을 그대로 사용했습니다.
+    </p>
+  </div>
+</section>
+
+<section id="mo-dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="mo-titleMsel">
+          <button type="button" class="msel-btn" id="mo-titleMselBtn">타이틀 전체</button>
+          <div class="msel-panel" id="mo-titleMselPanel"></div>
+        </div>
+        <select id="mo-formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="mo-sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="mo-kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="mo-kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="mo-kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="mo-kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="mo-chartWrap"><canvas id="mo-gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="mo-dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<section id="mo-compare">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Weekly Comparison</div>
+      <h2>타이틀별 주차 실적 비교</h2>
+    </div>
+    <div class="dash-card">
+      <div class="compare-controls">
+        <div class="msel" id="mo-cmpMsel">
+          <button type="button" class="msel-btn" id="mo-cmpMselBtn">타이틀 선택</button>
+          <div class="msel-panel" id="mo-cmpMselPanel"></div>
+        </div>
+        <select id="mo-cmpFormatSel">
+          <option value="Total">Total (4DX+SX)</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+      </div>
+      <div class="compare-hint">두 개 이상의 타이틀을 선택하면 리포팅 구간별 PSA 추이를 겹쳐서 비교할 수 있습니다. 포맷을 4DX만/SX만으로 좁히면 해당 포맷으로 상영되지 않은 타이틀은 목록에서 자동으로 숨겨집니다.</div>
+      <div style="position:relative; width:100%; height:340px;"><canvas id="mo-cmpChart"></canvas></div>
+      <p class="footnote-text" style="font-size:12px; color:var(--text-dim); margin-top:14px; line-height:1.7;">
+        <sup>*</sup> 주차 구분 — 원본 데이터에 있는 자체 리포팅 블록을 타이틀별 시간 순서대로 W1, W2…로 번호를 매겼습니다. 다른 6개국처럼 요일 기준 주차 사이클을 적용한 것이 아니므로 국가 간 직접 비교에는 주의가 필요합니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Macau 4DX / SCREENX Performance Review (CGV)</div>
+</footer>
+</div>
+
+<div class="chapter" data-chapter="indonesia">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Indonesia · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun) · CGV</div>
+    <h1>Indonesia Q2 4DX / SCREENX Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$856.3K</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$5.34</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">$112</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">$172</div></div>
+      <div class="kpi"><div class="label">최고 GBO 타이틀</div><div class="value">Avatar: Fire and Ash</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="id-note">
+  <div class="wrap">
+    <p class="footnote-text" style="font-size:12.5px; color:var(--text-dim); line-height:1.7;">
+      <sup>*</sup> CGV 체인 데이터 기준입니다. 서술형 트렌드 분석은 아직 준비되지 않았으며, 대시보드는 원본 데이터 자동 집계입니다. 주차 구분은 원본 데이터의 자체 리포팅 구간(주 단위가 아닐 수 있음)을 그대로 사용했습니다.
+    </p>
+  </div>
+</section>
+
+<section id="id-dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="id-titleMsel">
+          <button type="button" class="msel-btn" id="id-titleMselBtn">타이틀 전체</button>
+          <div class="msel-panel" id="id-titleMselPanel"></div>
+        </div>
+        <select id="id-formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="id-sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="id-kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="id-kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="id-kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="id-kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="id-chartWrap"><canvas id="id-gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="id-dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<section id="id-compare">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Weekly Comparison</div>
+      <h2>타이틀별 주차 실적 비교</h2>
+    </div>
+    <div class="dash-card">
+      <div class="compare-controls">
+        <div class="msel" id="id-cmpMsel">
+          <button type="button" class="msel-btn" id="id-cmpMselBtn">타이틀 선택</button>
+          <div class="msel-panel" id="id-cmpMselPanel"></div>
+        </div>
+        <select id="id-cmpFormatSel">
+          <option value="Total">Total (4DX+SX)</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+      </div>
+      <div class="compare-hint">두 개 이상의 타이틀을 선택하면 리포팅 구간별 PSA 추이를 겹쳐서 비교할 수 있습니다. 포맷을 4DX만/SX만으로 좁히면 해당 포맷으로 상영되지 않은 타이틀은 목록에서 자동으로 숨겨집니다.</div>
+      <div style="position:relative; width:100%; height:340px;"><canvas id="id-cmpChart"></canvas></div>
+      <p class="footnote-text" style="font-size:12px; color:var(--text-dim); margin-top:14px; line-height:1.7;">
+        <sup>*</sup> 주차 구분 — 원본 데이터에 있는 자체 리포팅 블록을 타이틀별 시간 순서대로 W1, W2…로 번호를 매겼습니다. 다른 6개국처럼 요일 기준 주차 사이클을 적용한 것이 아니므로 국가 간 직접 비교에는 주의가 필요합니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Indonesia 4DX / SCREENX Performance Review (CGV)</div>
+</footer>
+</div>
+
+<div class="chapter" data-chapter="turkey">
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Turkey · 4DX / SCREENX &nbsp;·&nbsp; Q2 2026 (Apr–Jun) · CGV</div>
+    <h1>Turkey Q2 4DX / SCREENX Performance Review</h1>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">GBO 합계</div><div class="value">$1.42M</div></div>
+      <div class="kpi"><div class="label">ATP</div><div class="value">$11.44</div></div>
+      <div class="kpi"><div class="label">4DX PSA</div><div class="value">$226</div></div>
+      <div class="kpi"><div class="label">SX PSA</div><div class="value">$182</div></div>
+      <div class="kpi"><div class="label">최고 GBO 타이틀</div><div class="value">Avatar: Fire and Ash</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sprockets"></div>
+
+<section id="tr-note">
+  <div class="wrap">
+    <p class="footnote-text" style="font-size:12.5px; color:var(--text-dim); line-height:1.7;">
+      <sup>*</sup> CGV 체인 데이터 기준입니다. 서술형 트렌드 분석은 아직 준비되지 않았으며, 대시보드는 원본 데이터 자동 집계입니다. 주차 구분은 원본 데이터의 자체 리포팅 구간(주 단위가 아닐 수 있음)을 그대로 사용했습니다.
+    </p>
+  </div>
+</section>
+
+<section id="tr-dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Interactive Dashboard</div>
+      <h2>타이틀별 GBO / PSA / OCC</h2>
+    </div>
+    <div class="dash-card">
+      <div class="controls">
+        <div class="msel" id="tr-titleMsel">
+          <button type="button" class="msel-btn" id="tr-titleMselBtn">타이틀 전체</button>
+          <div class="msel-panel" id="tr-titleMselPanel"></div>
+        </div>
+        <select id="tr-formatSel">
+          <option value="all">4DX + SX</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+        <select id="tr-sortSel">
+          <option value="gbo">GBO순</option>
+          <option value="release">개봉일순</option>
+          <option value="psa">PSA순</option>
+          <option value="occ">OCC순</option>
+        </select>
+      </div>
+      <div class="dash-kpis">
+        <div class="k"><div class="label">GBO 합계</div><div class="value" id="tr-kpiGbo">-</div></div>
+        <div class="k"><div class="label">상영회차</div><div class="value" id="tr-kpiScr">-</div></div>
+        <div class="k"><div class="label">평균 PSA</div><div class="value" id="tr-kpiPsa">-</div></div>
+        <div class="k"><div class="label">평균 OCC</div><div class="value" id="tr-kpiOcc">-</div></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--c-4dx);"></span>4DX</span>
+        <span><span class="dot" style="background:var(--c-sx);"></span>SX</span>
+      </div>
+      <div id="tr-chartWrap"><canvas id="tr-gboChart"></canvas></div>
+      <div class="table-scroll">
+        <table class="dashtable">
+          <thead><tr><th>타이틀</th><th>포맷</th><th>개봉일</th><th>상영회차</th><th>GBO</th><th>PSA</th><th>OCC</th></tr></thead>
+          <tbody id="tr-dashBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<section id="tr-compare">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Weekly Comparison</div>
+      <h2>타이틀별 주차 실적 비교</h2>
+    </div>
+    <div class="dash-card">
+      <div class="compare-controls">
+        <div class="msel" id="tr-cmpMsel">
+          <button type="button" class="msel-btn" id="tr-cmpMselBtn">타이틀 선택</button>
+          <div class="msel-panel" id="tr-cmpMselPanel"></div>
+        </div>
+        <select id="tr-cmpFormatSel">
+          <option value="Total">Total (4DX+SX)</option>
+          <option value="4DX">4DX만</option>
+          <option value="SX">SX만</option>
+        </select>
+      </div>
+      <div class="compare-hint">두 개 이상의 타이틀을 선택하면 리포팅 구간별 PSA 추이를 겹쳐서 비교할 수 있습니다. 포맷을 4DX만/SX만으로 좁히면 해당 포맷으로 상영되지 않은 타이틀은 목록에서 자동으로 숨겨집니다.</div>
+      <div style="position:relative; width:100%; height:340px;"><canvas id="tr-cmpChart"></canvas></div>
+      <p class="footnote-text" style="font-size:12px; color:var(--text-dim); margin-top:14px; line-height:1.7;">
+        <sup>*</sup> 주차 구분 — 원본 데이터에 있는 자체 리포팅 블록을 타이틀별 시간 순서대로 W1, W2…로 번호를 매겼습니다. 다른 6개국처럼 요일 기준 주차 사이클을 적용한 것이 아니므로 국가 간 직접 비교에는 주의가 필요합니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="sprockets"></div>
+
+<footer>
+  <div class="wrap">Q2 2026 (2026-04-01 ~ 2026-06-30) · Turkey 4DX / SCREENX Performance Review (CGV)</div>
+</footer>
+</div>
   </main>
 </div>
 
@@ -1640,6 +2068,14 @@ try { initTop10('vn', [{"title": "Avatar: Fire and Ash", "gbo_k": 428.7, "screen
 try { initCountryDashboard('th', [{"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":129,"gbo_k":31.8,"psa":247.0,"occ":15.8,"release_date":"2026-04-02"},{"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":98,"gbo_k":19.7,"psa":201.0,"occ":11.6,"release_date":"2026-05-21"},{"format":"4DX","title":"Toy Story 5","screenings":83,"gbo_k":18.0,"psa":217.0,"occ":13.7,"release_date":"2026-06-17"},{"format":"4DX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":16,"gbo_k":12.6,"psa":785.0,"occ":46.5,"release_date":"2026-06-10"},{"format":"4DX","title":"Lee Cronin's The Mummy","screenings":86,"gbo_k":11.4,"psa":132.0,"occ":8.1,"release_date":"2026-04-15"},{"format":"4DX","title":"Colony","screenings":46,"gbo_k":8.5,"psa":185.0,"occ":12.0,"release_date":"2026-06-01"},{"format":"4DX","title":"Supergirl","screenings":49,"gbo_k":5.9,"psa":120.0,"occ":7.8,"release_date":"2026-06-25"},{"format":"4DX","title":"ENHYPEN : IMMERSION IN CINEMAS VR","screenings":14,"gbo_k":3.8,"psa":274.0,"occ":17.9,"release_date":"2026-05-13"},{"format":"4DX","title":"Masters of the Universe","screenings":42,"gbo_k":3.5,"psa":84.0,"occ":5.4,"release_date":"2026-06-03"},{"format":"4DX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":15,"gbo_k":3.2,"psa":211.0,"occ":13.6,"release_date":"2026-04-22"},{"format":"4DX","title":"Detective Conan: Fallen Angel of the Highway","screenings":10,"gbo_k":2.7,"psa":269.0,"occ":15.5,"release_date":"2026-04-25"},{"format":"SX","title":"Colony","screenings":100,"gbo_k":23.0,"psa":230.0,"occ":8.9,"release_date":"2026-06-01"},{"format":"SX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":11,"gbo_k":19.4,"psa":1760.0,"occ":42.4,"release_date":"2026-06-10"},{"format":"SX","title":"Toy Story 5","screenings":55,"gbo_k":16.8,"psa":306.0,"occ":11.5,"release_date":"2026-06-17"},{"format":"SX","title":"The Devil Wears Prada 2","screenings":39,"gbo_k":15.5,"psa":397.0,"occ":14.9,"release_date":"2026-04-30"},{"format":"SX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":10,"gbo_k":14.8,"psa":1479.0,"occ":38.8,"release_date":"2026-04-22"},{"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":69,"gbo_k":13.1,"psa":190.0,"occ":6.8,"release_date":"2026-05-21"},{"format":"SX","title":"The Super Mario Galaxy Movie","screenings":87,"gbo_k":11.2,"psa":128.0,"occ":5.0,"release_date":"2026-04-02"},{"format":"SX","title":"Lee Cronin's The Mummy","screenings":56,"gbo_k":9.6,"psa":171.0,"occ":6.5,"release_date":"2026-04-15"},{"format":"SX","title":"Supergirl","screenings":46,"gbo_k":4.3,"psa":94.0,"occ":3.6,"release_date":"2026-06-25"},{"format":"SX","title":"ENHYPEN : IMMERSION IN CINEMAS VR","screenings":9,"gbo_k":1.8,"psa":197.0,"occ":5.2,"release_date":"2026-05-13"}]); } catch(e) { console.error('th dashboard init failed', e); }
 try { initWeeklyCompare('th', [{"title":"Backrooms","format":"4DX","week":1,"screenings":57,"gbo_k":11.2,"psa":197.0,"occ":14.0},{"title":"Backrooms","format":"Total","week":1,"screenings":57,"gbo_k":11.2,"psa":197.0,"occ":14.0},{"title":"Colony","format":"4DX","week":1,"screenings":6,"gbo_k":2.4,"psa":406.0,"occ":26.3},{"title":"Colony","format":"4DX","week":2,"screenings":40,"gbo_k":6.1,"psa":152.0,"occ":9.9},{"title":"Colony","format":"SX","week":1,"screenings":8,"gbo_k":6.1,"psa":760.0,"occ":28.8},{"title":"Colony","format":"SX","week":2,"screenings":54,"gbo_k":12.6,"psa":234.0,"occ":9.0},{"title":"Colony","format":"SX","week":3,"screenings":38,"gbo_k":4.4,"psa":115.0,"occ":4.7},{"title":"Colony","format":"Total","week":1,"screenings":14,"gbo_k":8.5,"psa":608.0,"occ":28.2},{"title":"Colony","format":"Total","week":2,"screenings":94,"gbo_k":18.7,"psa":199.0,"occ":9.2},{"title":"Colony","format":"Total","week":3,"screenings":38,"gbo_k":4.4,"psa":115.0,"occ":4.7},{"title":"Detective Conan: Fallen Angel of the Highway","format":"4DX","week":1,"screenings":1,"gbo_k":1.6,"psa":1597.0,"occ":72.1},{"title":"Detective Conan: Fallen Angel of the Highway","format":"4DX","week":2,"screenings":66,"gbo_k":9.2,"psa":139.0,"occ":9.3},{"title":"Detective Conan: Fallen Angel of the Highway","format":"Total","week":1,"screenings":1,"gbo_k":1.6,"psa":1597.0,"occ":72.1},{"title":"Detective Conan: Fallen Angel of the Highway","format":"Total","week":2,"screenings":66,"gbo_k":9.2,"psa":139.0,"occ":9.3},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"4DX","week":1,"screenings":2,"gbo_k":0.6,"psa":278.0,"occ":17.8},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"4DX","week":2,"screenings":12,"gbo_k":3.3,"psa":273.0,"occ":18.0},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"SX","week":1,"screenings":2,"gbo_k":0.3,"psa":138.0,"occ":3.6},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"SX","week":2,"screenings":7,"gbo_k":1.5,"psa":214.0,"occ":5.7},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"Total","week":1,"screenings":4,"gbo_k":0.8,"psa":208.0,"occ":7.9},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"Total","week":2,"screenings":19,"gbo_k":4.8,"psa":251.0,"occ":10.9},{"title":"GOAT","format":"4DX","week":1,"screenings":63,"gbo_k":6.8,"psa":108.0,"occ":7.4},{"title":"GOAT","format":"Total","week":1,"screenings":63,"gbo_k":6.8,"psa":108.0,"occ":7.4},{"title":"Lee Cronin's The Mummy","format":"4DX","week":1,"screenings":12,"gbo_k":2.1,"psa":173.0,"occ":10.1},{"title":"Lee Cronin's The Mummy","format":"4DX","week":2,"screenings":74,"gbo_k":9.3,"psa":126.0,"occ":7.7},{"title":"Lee Cronin's The Mummy","format":"SX","week":1,"screenings":8,"gbo_k":1.5,"psa":190.0,"occ":6.8},{"title":"Lee Cronin's The Mummy","format":"SX","week":2,"screenings":48,"gbo_k":8.1,"psa":168.0,"occ":6.5},{"title":"Lee Cronin's The Mummy","format":"Total","week":1,"screenings":20,"gbo_k":3.6,"psa":180.0,"occ":8.1},{"title":"Lee Cronin's The Mummy","format":"Total","week":2,"screenings":122,"gbo_k":17.4,"psa":142.0,"occ":7.0},{"title":"Masters of the Universe","format":"4DX","week":1,"screenings":6,"gbo_k":0.6,"psa":104.0,"occ":6.3},{"title":"Masters of the Universe","format":"4DX","week":2,"screenings":36,"gbo_k":2.9,"psa":81.0,"occ":5.2},{"title":"Masters of the Universe","format":"Total","week":1,"screenings":6,"gbo_k":0.6,"psa":104.0,"occ":6.3},{"title":"Masters of the Universe","format":"Total","week":2,"screenings":36,"gbo_k":2.9,"psa":81.0,"occ":5.2},{"title":"Michael","format":"SX","week":2,"screenings":45,"gbo_k":8.3,"psa":185.0,"occ":7.2},{"title":"Michael","format":"SX","week":5,"screenings":8,"gbo_k":3.0,"psa":371.0,"occ":14.4},{"title":"Michael","format":"Total","week":2,"screenings":45,"gbo_k":8.3,"psa":185.0,"occ":7.2},{"title":"Michael","format":"Total","week":5,"screenings":8,"gbo_k":3.0,"psa":371.0,"occ":14.4},{"title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","format":"SX","week":1,"screenings":6,"gbo_k":2.1,"psa":351.0,"occ":12.1},{"title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","format":"Total","week":1,"screenings":6,"gbo_k":2.1,"psa":351.0,"occ":12.1},{"title":"Mortal Kombat 2","format":"4DX","week":1,"screenings":69,"gbo_k":7.4,"psa":108.0,"occ":6.6},{"title":"Mortal Kombat 2","format":"SX","week":1,"screenings":49,"gbo_k":2.8,"psa":57.0,"occ":2.2},{"title":"Mortal Kombat 2","format":"Total","week":1,"screenings":118,"gbo_k":10.2,"psa":87.0,"occ":3.9},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"4DX","week":1,"screenings":3,"gbo_k":0.9,"psa":312.0,"occ":19.8},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"4DX","week":2,"screenings":12,"gbo_k":2.2,"psa":186.0,"occ":12.0},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"SX","week":1,"screenings":2,"gbo_k":3.1,"psa":1528.0,"occ":39.8},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"SX","week":2,"screenings":8,"gbo_k":11.7,"psa":1466.0,"occ":38.6},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"Total","week":1,"screenings":5,"gbo_k":4.0,"psa":798.0,"occ":31.9},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"Total","week":2,"screenings":20,"gbo_k":14.0,"psa":698.0,"occ":28.1},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"4DX","week":1,"screenings":3,"gbo_k":2.1,"psa":704.0,"occ":42.0},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"4DX","week":2,"screenings":13,"gbo_k":10.5,"psa":804.0,"occ":47.6},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"SX","week":1,"screenings":2,"gbo_k":2.9,"psa":1456.0,"occ":35.3},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"SX","week":2,"screenings":9,"gbo_k":16.4,"psa":1827.0,"occ":44.0},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"Total","week":1,"screenings":5,"gbo_k":5.0,"psa":1005.0,"occ":37.9},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"Total","week":2,"screenings":22,"gbo_k":26.9,"psa":1223.0,"occ":45.4},{"title":"Project Hail Mary","format":"4DX","week":4,"screenings":36,"gbo_k":6.4,"psa":177.0,"occ":10.4},{"title":"Project Hail Mary","format":"SX","week":4,"screenings":8,"gbo_k":1.7,"psa":219.0,"occ":10.6},{"title":"Project Hail Mary","format":"SX","week":5,"screenings":6,"gbo_k":1.6,"psa":272.0,"occ":10.5},{"title":"Project Hail Mary","format":"Total","week":4,"screenings":44,"gbo_k":8.1,"psa":185.0,"occ":10.5},{"title":"Project Hail Mary","format":"Total","week":5,"screenings":6,"gbo_k":1.6,"psa":272.0,"occ":10.5},{"title":"Salmokji: Whispering Water","format":"4DX","week":1,"screenings":13,"gbo_k":1.8,"psa":137.0,"occ":8.2},{"title":"Salmokji: Whispering Water","format":"SX","week":1,"screenings":10,"gbo_k":2.6,"psa":258.0,"occ":9.2},{"title":"Salmokji: Whispering Water","format":"Total","week":1,"screenings":23,"gbo_k":4.4,"psa":190.0,"occ":8.8},{"title":"Star Wars: The Mandalorian and Grogu","format":"4DX","week":1,"screenings":62,"gbo_k":13.6,"psa":219.0,"occ":12.6},{"title":"Star Wars: The Mandalorian and Grogu","format":"4DX","week":2,"screenings":48,"gbo_k":7.4,"psa":155.0,"occ":8.9},{"title":"Star Wars: The Mandalorian and Grogu","format":"SX","week":1,"screenings":44,"gbo_k":7.8,"psa":178.0,"occ":6.5},{"title":"Star Wars: The Mandalorian and Grogu","format":"SX","week":2,"screenings":34,"gbo_k":6.1,"psa":179.0,"occ":6.3},{"title":"Star Wars: The Mandalorian and Grogu","format":"Total","week":1,"screenings":106,"gbo_k":21.4,"psa":202.0,"occ":8.8},{"title":"Star Wars: The Mandalorian and Grogu","format":"Total","week":2,"screenings":82,"gbo_k":13.5,"psa":165.0,"occ":7.3},{"title":"Supergirl","format":"4DX","week":1,"screenings":49,"gbo_k":5.9,"psa":120.0,"occ":7.8},{"title":"Supergirl","format":"SX","week":1,"screenings":46,"gbo_k":4.3,"psa":94.0,"occ":3.6},{"title":"Supergirl","format":"Total","week":1,"screenings":95,"gbo_k":10.2,"psa":107.0,"occ":4.9},{"title":"The Devil Wears Prada 2","format":"SX","week":1,"screenings":43,"gbo_k":19.3,"psa":449.0,"occ":16.8},{"title":"The Devil Wears Prada 2","format":"SX","week":2,"screenings":2,"gbo_k":0.3,"psa":141.0,"occ":5.1},{"title":"The Devil Wears Prada 2","format":"Total","week":1,"screenings":43,"gbo_k":19.3,"psa":449.0,"occ":16.8},{"title":"The Devil Wears Prada 2","format":"Total","week":2,"screenings":2,"gbo_k":0.3,"psa":141.0,"occ":5.1},{"title":"The Super Mario Galaxy Movie","format":"4DX","week":1,"screenings":94,"gbo_k":22.1,"psa":235.0,"occ":15.2},{"title":"The Super Mario Galaxy Movie","format":"4DX","week":2,"screenings":35,"gbo_k":9.7,"psa":277.0,"occ":17.4},{"title":"The Super Mario Galaxy Movie","format":"SX","week":1,"screenings":64,"gbo_k":7.9,"psa":123.0,"occ":4.8},{"title":"The Super Mario Galaxy Movie","format":"SX","week":2,"screenings":22,"gbo_k":3.2,"psa":144.0,"occ":5.5},{"title":"The Super Mario Galaxy Movie","format":"Total","week":1,"screenings":158,"gbo_k":30.0,"psa":190.0,"occ":8.9},{"title":"The Super Mario Galaxy Movie","format":"Total","week":2,"screenings":57,"gbo_k":12.9,"psa":226.0,"occ":10.3},{"title":"Top Gun (1986)","format":"4DX","week":1,"screenings":27,"gbo_k":2.1,"psa":79.0,"occ":6.7},{"title":"Top Gun (1986)","format":"SX","week":1,"screenings":13,"gbo_k":0.6,"psa":43.0,"occ":2.5},{"title":"Top Gun (1986)","format":"Total","week":1,"screenings":40,"gbo_k":2.7,"psa":67.0,"occ":4.5},{"title":"Top Gun: Maverick (2026 Re-release)","format":"4DX","week":1,"screenings":36,"gbo_k":5.1,"psa":142.0,"occ":12.1},{"title":"Top Gun: Maverick (2026 Re-release)","format":"SX","week":1,"screenings":19,"gbo_k":1.4,"psa":76.0,"occ":4.4},{"title":"Top Gun: Maverick (2026 Re-release)","format":"Total","week":1,"screenings":55,"gbo_k":6.5,"psa":119.0,"occ":7.9},{"title":"Toy Story 5","format":"4DX","week":1,"screenings":6,"gbo_k":1.4,"psa":241.0,"occ":14.7},{"title":"Toy Story 5","format":"4DX","week":2,"screenings":77,"gbo_k":16.6,"psa":216.0,"occ":13.7},{"title":"Toy Story 5","format":"SX","week":1,"screenings":2,"gbo_k":0.8,"psa":401.0,"occ":14.8},{"title":"Toy Story 5","format":"SX","week":2,"screenings":53,"gbo_k":16.0,"psa":303.0,"occ":11.4},{"title":"Toy Story 5","format":"Total","week":1,"screenings":8,"gbo_k":2.3,"psa":281.0,"occ":14.7},{"title":"Toy Story 5","format":"Total","week":2,"screenings":130,"gbo_k":32.6,"psa":251.0,"occ":12.3}]); } catch(e) { console.error('th weekly compare init failed', e); }
 try { initTop10('th', [{"title": "Avatar: Fire and Ash", "gbo_k": 227.0, "screenings": 214, "concert": false}, {"title": "Demon Slayer - Kimetsu no Yaiba - Infinity Castle", "gbo_k": 171.8, "screenings": 259, "concert": false}, {"title": "Jurassic World Rebirth", "gbo_k": 145.2, "screenings": 152, "concert": false}, {"title": "Superman", "gbo_k": 84.3, "screenings": 272, "concert": false}, {"title": "How to Train Your Dragon", "gbo_k": 83.8, "screenings": 206, "concert": false}, {"title": "MISSION: IMPOSSIBLE - THE FINAL RECKONING", "gbo_k": 67.0, "screenings": 205, "concert": false}, {"title": "F1", "gbo_k": 57.9, "screenings": 81, "concert": false}, {"title": "The Conjuring Last Rites", "gbo_k": 54.6, "screenings": 248, "concert": false}, {"title": "A Minecraft Movie", "gbo_k": 52.6, "screenings": 245, "concert": false}, {"title": "Captain America: Brave New World", "gbo_k": 46.6, "screenings": 226, "concert": false}]); } catch(e) { console.error('th top10 init failed', e); }
+try { initCountryDashboard('hk', [{"format":"SX","title":"Avatar: Fire and Ash","screenings":138,"gbo_k":43.0,"psa":312.0,"occ":17.9,"release_date":"2026-01-01"},{"format":"SX","title":"The Super Mario Galaxy Movie","screenings":88,"gbo_k":25.6,"psa":291.0,"occ":35.8,"release_date":"2026-04-01"},{"format":"SX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":30,"gbo_k":24.3,"psa":811.0,"occ":49.8,"release_date":"2026-04-30"},{"format":"SX","title":"Project Hail Mary","screenings":48,"gbo_k":14.1,"psa":295.0,"occ":26.6,"release_date":"2026-03-19"},{"format":"SX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":14,"gbo_k":13.0,"psa":931.0,"occ":42.7,"release_date":"2026-06-05"},{"format":"SX","title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","screenings":35,"gbo_k":9.2,"psa":264.0,"occ":20.2,"release_date":"2026-03-19"},{"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":36,"gbo_k":8.6,"psa":239.0,"occ":28.2,"release_date":"2026-05-21"},{"format":"SX","title":"colony","screenings":26,"gbo_k":6.0,"psa":230.0,"occ":26.9,"release_date":"2026-05-28"},{"format":"SX","title":"Mortal Kombat 2","screenings":14,"gbo_k":4.9,"psa":348.0,"occ":38.3,"release_date":"2026-05-07"},{"format":"SX","title":"Supergirl","screenings":21,"gbo_k":3.2,"psa":155.0,"occ":18.2,"release_date":"2026-06-24"},{"format":"SX","title":"Lee Cronin's The Mummy","screenings":13,"gbo_k":2.8,"psa":214.0,"occ":25.7,"release_date":"2026-04-16"},{"format":"SX","title":"Masters of the Universe","screenings":10,"gbo_k":1.3,"psa":132.0,"occ":13.2,"release_date":"2026-06-04"},{"format":"SX","title":"Top Gun (1986)","screenings":8,"gbo_k":1.1,"psa":137.0,"occ":15.7,"release_date":"2026-05-14"},{"format":"SX","title":"Top Gun: Maverick (2026 Re-release)","screenings":8,"gbo_k":0.9,"psa":111.0,"occ":12.7,"release_date":"2026-05-14"}]); } catch(e) { console.error('hk dashboard init failed', e); }
+try { initWeeklyCompare('hk', [{"title":"Avatar: Fire and Ash","format":"SX","week":1,"screenings":101,"gbo_k":38.2,"psa":378.0,"occ":21.6},{"title":"Avatar: Fire and Ash","format":"SX","week":2,"screenings":37,"gbo_k":4.9,"psa":132.0,"occ":7.8},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"SX","week":1,"screenings":26,"gbo_k":5.8,"psa":224.0,"occ":17.2},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"SX","week":2,"screenings":9,"gbo_k":3.4,"psa":378.0,"occ":28.9},{"title":"Lee Cronin's The Mummy","format":"SX","week":1,"screenings":13,"gbo_k":2.8,"psa":214.0,"occ":25.7},{"title":"Masters of the Universe","format":"SX","week":1,"screenings":10,"gbo_k":1.3,"psa":132.0,"occ":13.2},{"title":"Mortal Kombat 2","format":"SX","week":1,"screenings":14,"gbo_k":4.9,"psa":348.0,"occ":38.3},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"SX","week":1,"screenings":30,"gbo_k":24.3,"psa":811.0,"occ":49.8},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"SX","week":1,"screenings":14,"gbo_k":13.0,"psa":931.0,"occ":42.7},{"title":"Project Hail Mary","format":"SX","week":1,"screenings":33,"gbo_k":8.2,"psa":249.0,"occ":19.5},{"title":"Project Hail Mary","format":"SX","week":2,"screenings":15,"gbo_k":5.9,"psa":395.0,"occ":42.1},{"title":"Star Wars: The Mandalorian and Grogu","format":"SX","week":1,"screenings":36,"gbo_k":8.6,"psa":239.0,"occ":28.2},{"title":"Supergirl","format":"SX","week":1,"screenings":21,"gbo_k":3.2,"psa":155.0,"occ":18.2},{"title":"The Super Mario Galaxy Movie","format":"SX","week":1,"screenings":88,"gbo_k":25.6,"psa":291.0,"occ":35.8},{"title":"Top Gun (1986)","format":"SX","week":1,"screenings":8,"gbo_k":1.1,"psa":137.0,"occ":15.7},{"title":"Top Gun: Maverick (2026 Re-release)","format":"SX","week":1,"screenings":8,"gbo_k":0.9,"psa":111.0,"occ":12.7},{"title":"colony","format":"SX","week":1,"screenings":26,"gbo_k":6.0,"psa":230.0,"occ":26.9},{"title":"Avatar: Fire and Ash","format":"Total","week":1,"screenings":101,"gbo_k":38.2,"psa":378.0,"occ":21.6},{"title":"Avatar: Fire and Ash","format":"Total","week":2,"screenings":37,"gbo_k":4.9,"psa":132.0,"occ":7.8},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"Total","week":1,"screenings":26,"gbo_k":5.8,"psa":224.0,"occ":17.2},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"Total","week":2,"screenings":9,"gbo_k":3.4,"psa":378.0,"occ":28.9},{"title":"Lee Cronin's The Mummy","format":"Total","week":1,"screenings":13,"gbo_k":2.8,"psa":214.0,"occ":25.7},{"title":"Masters of the Universe","format":"Total","week":1,"screenings":10,"gbo_k":1.3,"psa":132.0,"occ":13.2},{"title":"Mortal Kombat 2","format":"Total","week":1,"screenings":14,"gbo_k":4.9,"psa":348.0,"occ":38.3},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"Total","week":1,"screenings":30,"gbo_k":24.3,"psa":811.0,"occ":49.8},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"Total","week":1,"screenings":14,"gbo_k":13.0,"psa":931.0,"occ":42.7},{"title":"Project Hail Mary","format":"Total","week":1,"screenings":33,"gbo_k":8.2,"psa":249.0,"occ":19.5},{"title":"Project Hail Mary","format":"Total","week":2,"screenings":15,"gbo_k":5.9,"psa":395.0,"occ":42.1},{"title":"Star Wars: The Mandalorian and Grogu","format":"Total","week":1,"screenings":36,"gbo_k":8.6,"psa":239.0,"occ":28.2},{"title":"Supergirl","format":"Total","week":1,"screenings":21,"gbo_k":3.2,"psa":155.0,"occ":18.2},{"title":"The Super Mario Galaxy Movie","format":"Total","week":1,"screenings":88,"gbo_k":25.6,"psa":291.0,"occ":35.8},{"title":"Top Gun (1986)","format":"Total","week":1,"screenings":8,"gbo_k":1.1,"psa":137.0,"occ":15.7},{"title":"Top Gun: Maverick (2026 Re-release)","format":"Total","week":1,"screenings":8,"gbo_k":0.9,"psa":111.0,"occ":12.7},{"title":"colony","format":"Total","week":1,"screenings":26,"gbo_k":6.0,"psa":230.0,"occ":26.9}]); } catch(e) { console.error('hk weekly compare init failed', e); }
+try { initCountryDashboard('mo', [{"format":"4DX","title":"Avatar: Fire and Ash","screenings":89,"gbo_k":16.6,"psa":187.0,"occ":11.3,"release_date":"2025-12-18"},{"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":71,"gbo_k":15.9,"psa":224.0,"occ":16.4,"release_date":"2026-04-01"},{"format":"4DX","title":"Toy Story 5","screenings":47,"gbo_k":10.7,"psa":227.0,"occ":16.0,"release_date":"2026-06-18"},{"format":"4DX","title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","screenings":41,"gbo_k":3.9,"psa":96.0,"occ":7.0,"release_date":"2026-03-13"},{"format":"4DX","title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","screenings":42,"gbo_k":3.8,"psa":92.0,"occ":6.4,"release_date":"2025-08-14"},{"format":"4DX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":17,"gbo_k":3.0,"psa":178.0,"occ":10.5,"release_date":"2026-04-30"},{"format":"4DX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":23,"gbo_k":2.9,"psa":125.0,"occ":6.5,"release_date":"2026-06-05"},{"format":"4DX","title":"Cold War 1994","screenings":49,"gbo_k":2.6,"psa":53.0,"occ":3.8,"release_date":"2026-05-01"},{"format":"4DX","title":"GOAT","screenings":15,"gbo_k":2.4,"psa":159.0,"occ":11.0,"release_date":"2026-02-12"},{"format":"4DX","title":"Back to the Past","screenings":58,"gbo_k":1.9,"psa":33.0,"occ":2.3,"release_date":"2026-01-17"},{"format":"4DX","title":"Zombieland Saga: Yumeginga Paradise","screenings":16,"gbo_k":1.7,"psa":107.0,"occ":7.2,"release_date":"2026-01-30"},{"format":"4DX","title":"Project Hail Mary","screenings":27,"gbo_k":1.4,"psa":52.0,"occ":3.7,"release_date":"2026-03-19"},{"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":35,"gbo_k":1.3,"psa":36.0,"occ":2.5,"release_date":"2026-05-21"},{"format":"4DX","title":"Michael","screenings":30,"gbo_k":1.1,"psa":36.0,"occ":2.7,"release_date":"2026-04-22"},{"format":"4DX","title":"Gintama: Yoshiwara in Flames","screenings":15,"gbo_k":1.0,"psa":70.0,"occ":4.9,"release_date":"2026-06-04"},{"format":"4DX","title":"Zootopia2","screenings":16,"gbo_k":1.0,"psa":60.0,"occ":4.2,"release_date":"2025-11-26"},{"format":"4DX","title":"Mortal Kombat 2","screenings":20,"gbo_k":0.7,"psa":37.0,"occ":2.5,"release_date":"2026-05-07"},{"format":"4DX","title":"Top Gun: Maverick (2026 Re-release)","screenings":8,"gbo_k":0.7,"psa":89.0,"occ":6.5,"release_date":"2026-05-14"},{"format":"4DX","title":"Top Gun (1986)","screenings":8,"gbo_k":0.6,"psa":71.0,"occ":5.1,"release_date":"2026-05-14"},{"format":"4DX","title":"Send Help","screenings":11,"gbo_k":0.4,"psa":37.0,"occ":2.7,"release_date":"2026-01-29"},{"format":"4DX","title":"Scary Movie","screenings":13,"gbo_k":0.3,"psa":21.0,"occ":1.5,"release_date":"2026-06-04"}]); } catch(e) { console.error('mo dashboard init failed', e); }
+try { initWeeklyCompare('mo', [{"title":"Avatar: Fire and Ash","format":"4DX","week":1,"screenings":62,"gbo_k":14.9,"psa":240.0,"occ":14.5},{"title":"Avatar: Fire and Ash","format":"4DX","week":2,"screenings":27,"gbo_k":1.8,"psa":65.0,"occ":4.1},{"title":"Back to the Past","format":"4DX","week":1,"screenings":58,"gbo_k":1.9,"psa":33.0,"occ":2.3},{"title":"Cold War 1994","format":"4DX","week":1,"screenings":49,"gbo_k":2.6,"psa":53.0,"occ":3.8},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"4DX","week":1,"screenings":27,"gbo_k":2.7,"psa":101.0,"occ":7.1},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"4DX","week":2,"screenings":15,"gbo_k":1.1,"psa":75.0,"occ":5.3},{"title":"GOAT","format":"4DX","week":1,"screenings":15,"gbo_k":2.4,"psa":159.0,"occ":11.0},{"title":"Gintama: Yoshiwara in Flames","format":"4DX","week":1,"screenings":15,"gbo_k":1.0,"psa":70.0,"occ":4.9},{"title":"Michael","format":"4DX","week":1,"screenings":30,"gbo_k":1.1,"psa":36.0,"occ":2.7},{"title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","format":"4DX","week":1,"screenings":21,"gbo_k":2.8,"psa":132.0,"occ":9.3},{"title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","format":"4DX","week":2,"screenings":20,"gbo_k":1.2,"psa":58.0,"occ":4.6},{"title":"Mortal Kombat 2","format":"4DX","week":1,"screenings":20,"gbo_k":0.7,"psa":37.0,"occ":2.5},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"4DX","week":1,"screenings":17,"gbo_k":3.0,"psa":178.0,"occ":10.5},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"4DX","week":1,"screenings":23,"gbo_k":2.9,"psa":125.0,"occ":6.5},{"title":"Project Hail Mary","format":"4DX","week":1,"screenings":27,"gbo_k":1.4,"psa":52.0,"occ":3.7},{"title":"Scary Movie","format":"4DX","week":1,"screenings":13,"gbo_k":0.3,"psa":21.0,"occ":1.5},{"title":"Send Help","format":"4DX","week":1,"screenings":11,"gbo_k":0.4,"psa":37.0,"occ":2.7},{"title":"Star Wars: The Mandalorian and Grogu","format":"4DX","week":1,"screenings":35,"gbo_k":1.3,"psa":36.0,"occ":2.5},{"title":"The Super Mario Galaxy Movie","format":"4DX","week":1,"screenings":71,"gbo_k":15.9,"psa":224.0,"occ":16.4},{"title":"Top Gun (1986)","format":"4DX","week":1,"screenings":8,"gbo_k":0.6,"psa":71.0,"occ":5.1},{"title":"Top Gun: Maverick (2026 Re-release)","format":"4DX","week":1,"screenings":8,"gbo_k":0.7,"psa":89.0,"occ":6.5},{"title":"Toy Story 5","format":"4DX","week":1,"screenings":47,"gbo_k":10.7,"psa":227.0,"occ":16.0},{"title":"Zombieland Saga: Yumeginga Paradise","format":"4DX","week":1,"screenings":16,"gbo_k":1.7,"psa":107.0,"occ":7.2},{"title":"Zootopia2","format":"4DX","week":1,"screenings":16,"gbo_k":1.0,"psa":60.0,"occ":4.2},{"title":"Avatar: Fire and Ash","format":"Total","week":1,"screenings":62,"gbo_k":14.9,"psa":240.0,"occ":14.5},{"title":"Avatar: Fire and Ash","format":"Total","week":2,"screenings":27,"gbo_k":1.8,"psa":65.0,"occ":4.1},{"title":"Back to the Past","format":"Total","week":1,"screenings":58,"gbo_k":1.9,"psa":33.0,"occ":2.3},{"title":"Cold War 1994","format":"Total","week":1,"screenings":49,"gbo_k":2.6,"psa":53.0,"occ":3.8},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"Total","week":1,"screenings":27,"gbo_k":2.7,"psa":101.0,"occ":7.1},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"Total","week":2,"screenings":15,"gbo_k":1.1,"psa":75.0,"occ":5.3},{"title":"GOAT","format":"Total","week":1,"screenings":15,"gbo_k":2.4,"psa":159.0,"occ":11.0},{"title":"Gintama: Yoshiwara in Flames","format":"Total","week":1,"screenings":15,"gbo_k":1.0,"psa":70.0,"occ":4.9},{"title":"Michael","format":"Total","week":1,"screenings":30,"gbo_k":1.1,"psa":36.0,"occ":2.7},{"title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","format":"Total","week":1,"screenings":21,"gbo_k":2.8,"psa":132.0,"occ":9.3},{"title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","format":"Total","week":2,"screenings":20,"gbo_k":1.2,"psa":58.0,"occ":4.6},{"title":"Mortal Kombat 2","format":"Total","week":1,"screenings":20,"gbo_k":0.7,"psa":37.0,"occ":2.5},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"Total","week":1,"screenings":17,"gbo_k":3.0,"psa":178.0,"occ":10.5},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"Total","week":1,"screenings":23,"gbo_k":2.9,"psa":125.0,"occ":6.5},{"title":"Project Hail Mary","format":"Total","week":1,"screenings":27,"gbo_k":1.4,"psa":52.0,"occ":3.7},{"title":"Scary Movie","format":"Total","week":1,"screenings":13,"gbo_k":0.3,"psa":21.0,"occ":1.5},{"title":"Send Help","format":"Total","week":1,"screenings":11,"gbo_k":0.4,"psa":37.0,"occ":2.7},{"title":"Star Wars: The Mandalorian and Grogu","format":"Total","week":1,"screenings":35,"gbo_k":1.3,"psa":36.0,"occ":2.5},{"title":"The Super Mario Galaxy Movie","format":"Total","week":1,"screenings":71,"gbo_k":15.9,"psa":224.0,"occ":16.4},{"title":"Top Gun (1986)","format":"Total","week":1,"screenings":8,"gbo_k":0.6,"psa":71.0,"occ":5.1},{"title":"Top Gun: Maverick (2026 Re-release)","format":"Total","week":1,"screenings":8,"gbo_k":0.7,"psa":89.0,"occ":6.5},{"title":"Toy Story 5","format":"Total","week":1,"screenings":47,"gbo_k":10.7,"psa":227.0,"occ":16.0},{"title":"Zombieland Saga: Yumeginga Paradise","format":"Total","week":1,"screenings":16,"gbo_k":1.7,"psa":107.0,"occ":7.2},{"title":"Zootopia2","format":"Total","week":1,"screenings":16,"gbo_k":1.0,"psa":60.0,"occ":4.2}]); } catch(e) { console.error('mo weekly compare init failed', e); }
+try { initCountryDashboard('id', [{"format":"4DX","title":"Avatar: Fire and Ash","screenings":566,"gbo_k":143.2,"psa":253.0,"occ":30.3,"release_date":"2025-12-17"},{"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":228,"gbo_k":37.3,"psa":164.0,"occ":19.2,"release_date":"2026-03-30"},{"format":"4DX","title":"Stray Kids: The dominATE Experience","screenings":41,"gbo_k":28.0,"psa":684.0,"occ":43.4,"release_date":"2026-02-06"},{"format":"4DX","title":"Project Hail Mary","screenings":216,"gbo_k":24.7,"psa":114.0,"occ":14.2,"release_date":"2026-04-08"},{"format":"4DX","title":"Toy Story 5","screenings":198,"gbo_k":23.4,"psa":118.0,"occ":15.8,"release_date":"2026-06-17"},{"format":"4DX","title":"Hoppers","screenings":269,"gbo_k":20.1,"psa":75.0,"occ":9.1,"release_date":"2026-03-04"},{"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":201,"gbo_k":13.2,"psa":66.0,"occ":8.2,"release_date":"2026-05-20"},{"format":"4DX","title":"colony","screenings":168,"gbo_k":12.2,"psa":73.0,"occ":10.0,"release_date":"2026-06-03"},{"format":"4DX","title":"ENHYPEN [WALK THE LINE SUMMER EDITION] IN CINEMAS","screenings":37,"gbo_k":10.5,"psa":284.0,"occ":18.2,"release_date":"2026-03-05"},{"format":"4DX","title":"Mortal Kombat 2","screenings":171,"gbo_k":10.4,"psa":61.0,"occ":7.8,"release_date":"2026-05-06"},{"format":"4DX","title":"Danur: The Last Chapter","screenings":233,"gbo_k":9.1,"psa":39.0,"occ":4.7,"release_date":"2026-03-16"},{"format":"4DX","title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","screenings":129,"gbo_k":6.4,"psa":49.0,"occ":6.3,"release_date":"2025-08-15"},{"format":"4DX","title":"Salmokji: Whispering Water","screenings":127,"gbo_k":5.5,"psa":44.0,"occ":5.5,"release_date":"2026-05-01"},{"format":"4DX","title":"Supergirl","screenings":69,"gbo_k":5.5,"psa":80.0,"occ":11.3,"release_date":"2026-06-24"},{"format":"4DX","title":"Lee Cronin's The Mummy","screenings":87,"gbo_k":4.6,"psa":53.0,"occ":7.2,"release_date":"2026-04-15"},{"format":"4DX","title":"Backrooms","screenings":81,"gbo_k":4.3,"psa":53.0,"occ":7.0,"release_date":"2026-06-10"},{"format":"4DX","title":"GOAT","screenings":64,"gbo_k":4.3,"psa":67.0,"occ":7.4,"release_date":"2026-02-11"},{"format":"4DX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":25,"gbo_k":4.1,"psa":165.0,"occ":10.8,"release_date":"2026-06-03"},{"format":"4DX","title":"Top Gun: Maverick (2026 Re-release)","screenings":38,"gbo_k":4.0,"psa":106.0,"occ":12.8,"release_date":"2026-05-13"},{"format":"4DX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":41,"gbo_k":3.7,"psa":91.0,"occ":8.4,"release_date":"2026-04-17"},{"format":"4DX","title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","screenings":42,"gbo_k":2.8,"psa":66.0,"occ":8.9,"release_date":"2026-05-29"},{"format":"4DX","title":"Ready or Not 2: Here I Come","screenings":63,"gbo_k":2.2,"psa":36.0,"occ":5.0,"release_date":"2026-04-15"},{"format":"4DX","title":"Send Help","screenings":87,"gbo_k":2.2,"psa":25.0,"occ":3.3,"release_date":"2026-01-28"},{"format":"4DX","title":"ENHYPEN : IMMERSION IN CINEMAS VR","screenings":43,"gbo_k":2.0,"psa":47.0,"occ":3.5,"release_date":"2026-04-29"},{"format":"4DX","title":"Crime 101","screenings":57,"gbo_k":1.6,"psa":28.0,"occ":3.6,"release_date":"2026-02-18"},{"format":"4DX","title":"Top Gun (1986)","screenings":35,"gbo_k":1.4,"psa":41.0,"occ":5.2,"release_date":"2026-05-13"},{"format":"4DX","title":"Scream 7","screenings":59,"gbo_k":1.3,"psa":22.0,"occ":3.1,"release_date":"2026-02-25"},{"format":"4DX","title":"Mercy","screenings":46,"gbo_k":1.2,"psa":26.0,"occ":3.0,"release_date":"2026-01-21"},{"format":"4DX","title":"28 Years Later: The Bone Temple","screenings":43,"gbo_k":1.1,"psa":25.0,"occ":2.9,"release_date":"2026-01-14"},{"format":"4DX","title":"The Bride!","screenings":40,"gbo_k":0.5,"psa":12.0,"occ":1.5,"release_date":"2026-03-04"},{"format":"SX","title":"Toy Story 5","screenings":227,"gbo_k":62.5,"psa":275.0,"occ":21.4,"release_date":"2026-06-17"},{"format":"SX","title":"Avatar: Fire and Ash","screenings":316,"gbo_k":57.1,"psa":181.0,"occ":8.5,"release_date":"2025-12-17"},{"format":"SX","title":"Project Hail Mary","screenings":153,"gbo_k":41.4,"psa":271.0,"occ":17.9,"release_date":"2026-04-08"},{"format":"SX","title":"colony","screenings":199,"gbo_k":38.5,"psa":193.0,"occ":14.3,"release_date":"2026-06-03"},{"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":296,"gbo_k":34.7,"psa":117.0,"occ":8.6,"release_date":"2026-05-20"},{"format":"SX","title":"Mortal Kombat 2","screenings":262,"gbo_k":33.9,"psa":129.0,"occ":9.5,"release_date":"2026-05-06"},{"format":"SX","title":"The Super Mario Galaxy Movie","screenings":160,"gbo_k":32.0,"psa":200.0,"occ":13.3,"release_date":"2026-03-30"},{"format":"SX","title":"Salmokji: Whispering Water","screenings":213,"gbo_k":27.8,"psa":131.0,"occ":10.6,"release_date":"2026-05-01"},{"format":"SX","title":"Stray Kids: The dominATE Experience","screenings":18,"gbo_k":18.5,"psa":1025.0,"occ":20.5,"release_date":"2026-02-06"},{"format":"SX","title":"Lee Cronin's The Mummy","screenings":81,"gbo_k":16.7,"psa":206.0,"occ":13.9,"release_date":"2026-04-15"},{"format":"SX","title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","screenings":137,"gbo_k":16.0,"psa":117.0,"occ":6.1,"release_date":"2026-02-20"},{"format":"SX","title":"ENHYPEN [WALK THE LINE SUMMER EDITION] IN CINEMAS","screenings":26,"gbo_k":13.5,"psa":521.0,"occ":11.4,"release_date":"2026-03-05"},{"format":"SX","title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","screenings":29,"gbo_k":13.0,"psa":449.0,"occ":14.5,"release_date":"2026-04-17"},{"format":"SX","title":"Supergirl","screenings":71,"gbo_k":13.0,"psa":183.0,"occ":13.1,"release_date":"2026-06-24"},{"format":"SX","title":"Michael","screenings":33,"gbo_k":10.0,"psa":304.0,"occ":16.9,"release_date":"2026-04-22"},{"format":"SX","title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","screenings":20,"gbo_k":6.6,"psa":331.0,"occ":7.4,"release_date":"2026-06-03"},{"format":"SX","title":"Scream 7","screenings":86,"gbo_k":5.3,"psa":61.0,"occ":4.0,"release_date":"2026-02-25"},{"format":"SX","title":"Send Help","screenings":91,"gbo_k":4.9,"psa":54.0,"occ":2.6,"release_date":"2026-01-28"},{"format":"SX","title":"Top Gun: Maverick (2026 Re-release)","screenings":63,"gbo_k":4.9,"psa":77.0,"occ":5.3,"release_date":"2026-05-13"},{"format":"SX","title":"28 Years Later: The Bone Temple","screenings":49,"gbo_k":4.7,"psa":96.0,"occ":4.9,"release_date":"2026-01-14"},{"format":"SX","title":"ENHYPEN : IMMERSION IN CINEMAS VR","screenings":67,"gbo_k":4.0,"psa":60.0,"occ":1.7,"release_date":"2026-04-29"},{"format":"SX","title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","screenings":30,"gbo_k":2.5,"psa":83.0,"occ":4.9,"release_date":"2026-05-29"},{"format":"SX","title":"Top Gun (1986)","screenings":68,"gbo_k":2.3,"psa":33.0,"occ":2.3,"release_date":"2026-05-13"},{"format":"SX","title":"The Devil Wears Prada 2","screenings":15,"gbo_k":1.9,"psa":129.0,"occ":8.9,"release_date":"2026-04-29"}]); } catch(e) { console.error('id dashboard init failed', e); }
+try { initWeeklyCompare('id', [{"title":"28 Years Later: The Bone Temple","format":"4DX","week":1,"screenings":43,"gbo_k":1.1,"psa":25.0,"occ":2.9},{"title":"Avatar: Fire and Ash","format":"4DX","week":1,"screenings":436,"gbo_k":135.5,"psa":311.0,"occ":37.0},{"title":"Avatar: Fire and Ash","format":"4DX","week":2,"screenings":130,"gbo_k":7.7,"psa":59.0,"occ":7.7},{"title":"Backrooms","format":"4DX","week":1,"screenings":81,"gbo_k":4.3,"psa":53.0,"occ":7.0},{"title":"Crime 101","format":"4DX","week":1,"screenings":57,"gbo_k":1.6,"psa":28.0,"occ":3.6},{"title":"Danur: The Last Chapter","format":"4DX","week":1,"screenings":233,"gbo_k":9.1,"psa":39.0,"occ":4.7},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"4DX","week":1,"screenings":62,"gbo_k":3.7,"psa":60.0,"occ":7.4},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"4DX","week":2,"screenings":67,"gbo_k":2.6,"psa":39.0,"occ":5.2},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"4DX","week":1,"screenings":10,"gbo_k":0.6,"psa":58.0,"occ":4.3},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"4DX","week":2,"screenings":33,"gbo_k":1.4,"psa":44.0,"occ":3.3},{"title":"ENHYPEN [WALK THE LINE SUMMER EDITION] IN CINEMAS","format":"4DX","week":1,"screenings":37,"gbo_k":10.5,"psa":284.0,"occ":18.2},{"title":"GOAT","format":"4DX","week":1,"screenings":64,"gbo_k":4.3,"psa":67.0,"occ":7.4},{"title":"Hoppers","format":"4DX","week":1,"screenings":269,"gbo_k":20.1,"psa":75.0,"occ":9.1},{"title":"Lee Cronin's The Mummy","format":"4DX","week":1,"screenings":87,"gbo_k":4.6,"psa":53.0,"occ":7.2},{"title":"Mercy","format":"4DX","week":1,"screenings":46,"gbo_k":1.2,"psa":26.0,"occ":3.0},{"title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","format":"4DX","week":1,"screenings":42,"gbo_k":2.8,"psa":66.0,"occ":8.9},{"title":"Mortal Kombat 2","format":"4DX","week":1,"screenings":171,"gbo_k":10.4,"psa":61.0,"occ":7.8},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"4DX","week":1,"screenings":41,"gbo_k":3.7,"psa":91.0,"occ":8.4},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"4DX","week":1,"screenings":25,"gbo_k":4.1,"psa":165.0,"occ":10.8},{"title":"Project Hail Mary","format":"4DX","week":1,"screenings":216,"gbo_k":24.7,"psa":114.0,"occ":14.2},{"title":"Ready or Not 2: Here I Come","format":"4DX","week":1,"screenings":63,"gbo_k":2.2,"psa":36.0,"occ":5.0},{"title":"Salmokji: Whispering Water","format":"4DX","week":1,"screenings":127,"gbo_k":5.5,"psa":44.0,"occ":5.5},{"title":"Scream 7","format":"4DX","week":1,"screenings":38,"gbo_k":0.9,"psa":23.0,"occ":3.0},{"title":"Scream 7","format":"4DX","week":2,"screenings":21,"gbo_k":0.4,"psa":21.0,"occ":3.3},{"title":"Send Help","format":"4DX","week":1,"screenings":31,"gbo_k":0.7,"psa":21.0,"occ":2.9},{"title":"Send Help","format":"4DX","week":2,"screenings":56,"gbo_k":1.5,"psa":27.0,"occ":3.6},{"title":"Star Wars: The Mandalorian and Grogu","format":"4DX","week":1,"screenings":201,"gbo_k":13.2,"psa":66.0,"occ":8.2},{"title":"Stray Kids: The dominATE Experience","format":"4DX","week":1,"screenings":41,"gbo_k":28.0,"psa":684.0,"occ":43.4},{"title":"Supergirl","format":"4DX","week":1,"screenings":69,"gbo_k":5.5,"psa":80.0,"occ":11.3},{"title":"The Bride!","format":"4DX","week":1,"screenings":40,"gbo_k":0.5,"psa":12.0,"occ":1.5},{"title":"The Super Mario Galaxy Movie","format":"4DX","week":1,"screenings":228,"gbo_k":37.3,"psa":164.0,"occ":19.2},{"title":"Top Gun (1986)","format":"4DX","week":1,"screenings":35,"gbo_k":1.4,"psa":41.0,"occ":5.2},{"title":"Top Gun: Maverick (2026 Re-release)","format":"4DX","week":1,"screenings":38,"gbo_k":4.0,"psa":106.0,"occ":12.8},{"title":"Toy Story 5","format":"4DX","week":1,"screenings":198,"gbo_k":23.4,"psa":118.0,"occ":15.8},{"title":"colony","format":"4DX","week":1,"screenings":168,"gbo_k":12.2,"psa":73.0,"occ":10.0},{"title":"28 Years Later: The Bone Temple","format":"SX","week":1,"screenings":49,"gbo_k":4.7,"psa":96.0,"occ":4.9},{"title":"Avatar: Fire and Ash","format":"SX","week":1,"screenings":242,"gbo_k":53.2,"psa":220.0,"occ":10.2},{"title":"Avatar: Fire and Ash","format":"SX","week":2,"screenings":74,"gbo_k":3.9,"psa":52.0,"occ":2.6},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"SX","week":1,"screenings":62,"gbo_k":9.3,"psa":150.0,"occ":7.3},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"SX","week":2,"screenings":75,"gbo_k":6.6,"psa":89.0,"occ":5.2},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"SX","week":1,"screenings":8,"gbo_k":0.5,"psa":64.0,"occ":1.7},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"SX","week":2,"screenings":59,"gbo_k":3.5,"psa":59.0,"occ":1.7},{"title":"ENHYPEN [WALK THE LINE SUMMER EDITION] IN CINEMAS","format":"SX","week":1,"screenings":26,"gbo_k":13.5,"psa":521.0,"occ":11.4},{"title":"Lee Cronin's The Mummy","format":"SX","week":1,"screenings":81,"gbo_k":16.7,"psa":206.0,"occ":13.9},{"title":"Michael","format":"SX","week":1,"screenings":29,"gbo_k":3.5,"psa":121.0,"occ":8.1},{"title":"Michael","format":"SX","week":2,"screenings":4,"gbo_k":6.5,"psa":1633.0,"occ":67.1},{"title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","format":"SX","week":1,"screenings":30,"gbo_k":2.5,"psa":83.0,"occ":4.9},{"title":"Mortal Kombat 2","format":"SX","week":1,"screenings":262,"gbo_k":33.9,"psa":129.0,"occ":9.5},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"SX","week":1,"screenings":29,"gbo_k":13.0,"psa":449.0,"occ":14.5},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"SX","week":1,"screenings":20,"gbo_k":6.6,"psa":331.0,"occ":7.4},{"title":"Project Hail Mary","format":"SX","week":1,"screenings":153,"gbo_k":41.4,"psa":271.0,"occ":17.9},{"title":"Salmokji: Whispering Water","format":"SX","week":1,"screenings":213,"gbo_k":27.8,"psa":131.0,"occ":10.6},{"title":"Scream 7","format":"SX","week":1,"screenings":18,"gbo_k":0.9,"psa":52.0,"occ":2.8},{"title":"Scream 7","format":"SX","week":2,"screenings":68,"gbo_k":4.3,"psa":64.0,"occ":4.3},{"title":"Send Help","format":"SX","week":1,"screenings":24,"gbo_k":1.4,"psa":56.0,"occ":2.8},{"title":"Send Help","format":"SX","week":2,"screenings":67,"gbo_k":3.5,"psa":53.0,"occ":2.6},{"title":"Star Wars: The Mandalorian and Grogu","format":"SX","week":1,"screenings":296,"gbo_k":34.7,"psa":117.0,"occ":8.6},{"title":"Stray Kids: The dominATE Experience","format":"SX","week":1,"screenings":18,"gbo_k":18.5,"psa":1025.0,"occ":20.5},{"title":"Supergirl","format":"SX","week":1,"screenings":71,"gbo_k":13.0,"psa":183.0,"occ":13.1},{"title":"The Devil Wears Prada 2","format":"SX","week":1,"screenings":15,"gbo_k":1.9,"psa":129.0,"occ":8.9},{"title":"The Super Mario Galaxy Movie","format":"SX","week":1,"screenings":160,"gbo_k":32.0,"psa":200.0,"occ":13.3},{"title":"Top Gun (1986)","format":"SX","week":1,"screenings":68,"gbo_k":2.3,"psa":33.0,"occ":2.3},{"title":"Top Gun: Maverick (2026 Re-release)","format":"SX","week":1,"screenings":63,"gbo_k":4.9,"psa":77.0,"occ":5.3},{"title":"Toy Story 5","format":"SX","week":1,"screenings":227,"gbo_k":62.5,"psa":275.0,"occ":21.4},{"title":"colony","format":"SX","week":1,"screenings":199,"gbo_k":38.5,"psa":193.0,"occ":14.3},{"title":"28 Years Later: The Bone Temple","format":"Total","week":1,"screenings":92,"gbo_k":5.8,"psa":63.0,"occ":4.5},{"title":"Avatar: Fire and Ash","format":"Total","week":1,"screenings":678,"gbo_k":188.7,"psa":278.0,"occ":20.2},{"title":"Avatar: Fire and Ash","format":"Total","week":2,"screenings":204,"gbo_k":11.6,"psa":57.0,"occ":4.5},{"title":"Backrooms","format":"Total","week":1,"screenings":81,"gbo_k":4.3,"psa":53.0,"occ":7.0},{"title":"Crime 101","format":"Total","week":1,"screenings":57,"gbo_k":1.6,"psa":28.0,"occ":3.6},{"title":"Danur: The Last Chapter","format":"Total","week":1,"screenings":233,"gbo_k":9.1,"psa":39.0,"occ":4.7},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"Total","week":1,"screenings":124,"gbo_k":13.1,"psa":105.0,"occ":7.3},{"title":"Demon Slayer - Kimetsu no Yaiba - Infinity Castle","format":"Total","week":2,"screenings":142,"gbo_k":9.3,"psa":65.0,"occ":5.2},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"Total","week":1,"screenings":18,"gbo_k":1.1,"psa":61.0,"occ":2.5},{"title":"ENHYPEN : IMMERSION IN CINEMAS VR","format":"Total","week":2,"screenings":92,"gbo_k":5.0,"psa":54.0,"occ":2.0},{"title":"ENHYPEN [WALK THE LINE SUMMER EDITION] IN CINEMAS","format":"Total","week":1,"screenings":63,"gbo_k":24.1,"psa":382.0,"occ":13.5},{"title":"GOAT","format":"Total","week":1,"screenings":64,"gbo_k":4.3,"psa":67.0,"occ":7.4},{"title":"Hoppers","format":"Total","week":1,"screenings":269,"gbo_k":20.1,"psa":75.0,"occ":9.1},{"title":"Lee Cronin's The Mummy","format":"Total","week":1,"screenings":168,"gbo_k":21.3,"psa":127.0,"occ":12.1},{"title":"Mercy","format":"Total","week":1,"screenings":46,"gbo_k":1.2,"psa":26.0,"occ":3.0},{"title":"Michael","format":"Total","week":1,"screenings":29,"gbo_k":3.5,"psa":121.0,"occ":8.1},{"title":"Michael","format":"Total","week":2,"screenings":4,"gbo_k":6.5,"psa":1633.0,"occ":67.1},{"title":"Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe","format":"Total","week":1,"screenings":72,"gbo_k":5.3,"psa":73.0,"occ":6.2},{"title":"Mortal Kombat 2","format":"Total","week":1,"screenings":433,"gbo_k":44.3,"psa":102.0,"occ":9.2},{"title":"ONE OK ROCK DETOX JAPAN TOUR 2025 AT NISSAN STADIUM IN CINEMAS","format":"Total","week":1,"screenings":70,"gbo_k":16.7,"psa":239.0,"occ":12.4},{"title":"PLAVE Asia Tour [DASH: Quantum Leap] Encore in Cinemas","format":"Total","week":1,"screenings":45,"gbo_k":10.8,"psa":239.0,"occ":8.5},{"title":"Project Hail Mary","format":"Total","week":1,"screenings":369,"gbo_k":66.1,"psa":179.0,"occ":16.6},{"title":"Ready or Not 2: Here I Come","format":"Total","week":1,"screenings":63,"gbo_k":2.2,"psa":36.0,"occ":5.0},{"title":"Salmokji: Whispering Water","format":"Total","week":1,"screenings":340,"gbo_k":33.3,"psa":98.0,"occ":9.5},{"title":"Scream 7","format":"Total","week":1,"screenings":56,"gbo_k":1.8,"psa":32.0,"occ":2.9},{"title":"Scream 7","format":"Total","week":2,"screenings":89,"gbo_k":4.8,"psa":54.0,"occ":4.2},{"title":"Send Help","format":"Total","week":1,"screenings":55,"gbo_k":2.0,"psa":37.0,"occ":2.8},{"title":"Send Help","format":"Total","week":2,"screenings":123,"gbo_k":5.1,"psa":41.0,"occ":2.8},{"title":"Star Wars: The Mandalorian and Grogu","format":"Total","week":1,"screenings":497,"gbo_k":47.9,"psa":96.0,"occ":8.5},{"title":"Stray Kids: The dominATE Experience","format":"Total","week":1,"screenings":59,"gbo_k":46.5,"psa":788.0,"occ":30.4},{"title":"Supergirl","format":"Total","week":1,"screenings":140,"gbo_k":18.5,"psa":132.0,"occ":12.6},{"title":"The Bride!","format":"Total","week":1,"screenings":40,"gbo_k":0.5,"psa":12.0,"occ":1.5},{"title":"The Devil Wears Prada 2","format":"Total","week":1,"screenings":15,"gbo_k":1.9,"psa":129.0,"occ":8.9},{"title":"The Super Mario Galaxy Movie","format":"Total","week":1,"screenings":388,"gbo_k":69.3,"psa":179.0,"occ":15.3},{"title":"Top Gun (1986)","format":"Total","week":1,"screenings":103,"gbo_k":3.7,"psa":36.0,"occ":2.8},{"title":"Top Gun: Maverick (2026 Re-release)","format":"Total","week":1,"screenings":101,"gbo_k":8.9,"psa":88.0,"occ":6.7},{"title":"Toy Story 5","format":"Total","week":1,"screenings":425,"gbo_k":85.9,"psa":202.0,"occ":20.0},{"title":"colony","format":"Total","week":1,"screenings":367,"gbo_k":50.7,"psa":138.0,"occ":13.3}]); } catch(e) { console.error('id weekly compare init failed', e); }
+try { initCountryDashboard('tr', [{"format":"4DX","title":"Avatar: Fire and Ash","screenings":534,"gbo_k":301.9,"psa":565.0,"occ":41.4,"release_date":"2025-12-19"},{"format":"4DX","title":"The Super Mario Galaxy Movie","screenings":433,"gbo_k":88.8,"psa":205.0,"occ":14.8,"release_date":"2026-04-03"},{"format":"4DX","title":"Toy Story 5","screenings":178,"gbo_k":57.8,"psa":325.0,"occ":22.6,"release_date":"2026-06-19"},{"format":"4DX","title":"Michael","screenings":279,"gbo_k":45.8,"psa":164.0,"occ":11.7,"release_date":"2026-04-22"},{"format":"4DX","title":"Backrooms","screenings":238,"gbo_k":37.6,"psa":158.0,"occ":11.7,"release_date":"2026-05-29"},{"format":"4DX","title":"Hoppers","screenings":194,"gbo_k":34.7,"psa":179.0,"occ":13.0,"release_date":"2026-03-06"},{"format":"4DX","title":"GOAT","screenings":192,"gbo_k":26.0,"psa":135.0,"occ":9.5,"release_date":"2026-03-20"},{"format":"4DX","title":"Star Wars: The Mandalorian and Grogu","screenings":122,"gbo_k":20.7,"psa":170.0,"occ":11.8,"release_date":"2026-05-22"},{"format":"4DX","title":"Scream 7","screenings":135,"gbo_k":17.3,"psa":128.0,"occ":10.0,"release_date":"2026-02-27"},{"format":"4DX","title":"Project Hail Mary","screenings":75,"gbo_k":15.3,"psa":204.0,"occ":14.4,"release_date":"2026-03-20"},{"format":"4DX","title":"Lee Cronin's The Mummy","screenings":59,"gbo_k":8.9,"psa":150.0,"occ":11.1,"release_date":"2026-04-14"},{"format":"4DX","title":"Scary Movie","screenings":101,"gbo_k":8.7,"psa":87.0,"occ":6.3,"release_date":"2026-06-05"},{"format":"4DX","title":"Stray Kids: The dominATE Experience","screenings":82,"gbo_k":8.3,"psa":101.0,"occ":7.9,"release_date":"2026-02-06"},{"format":"4DX","title":"Mercy","screenings":64,"gbo_k":8.1,"psa":127.0,"occ":9.2,"release_date":"2026-01-23"},{"format":"4DX","title":"28 Years Later: The Bone Temple","screenings":75,"gbo_k":7.6,"psa":101.0,"occ":7.6,"release_date":"2026-01-16"},{"format":"4DX","title":"colony","screenings":45,"gbo_k":6.3,"psa":141.0,"occ":10.3,"release_date":"2026-06-19"},{"format":"4DX","title":"Mortal Kombat 2","screenings":62,"gbo_k":6.1,"psa":99.0,"occ":7.1,"release_date":"2026-05-08"},{"format":"4DX","title":"Ready or Not 2: Here I Come","screenings":33,"gbo_k":6.0,"psa":183.0,"occ":12.7,"release_date":"2026-03-20"},{"format":"4DX","title":"The Bride!","screenings":79,"gbo_k":4.1,"psa":52.0,"occ":4.0,"release_date":"2026-03-06"},{"format":"4DX","title":"Top Gun: Maverick (2026 Re-release)","screenings":32,"gbo_k":3.8,"psa":119.0,"occ":8.2,"release_date":"2026-05-15"},{"format":"4DX","title":"Zootopia2","screenings":21,"gbo_k":3.8,"psa":182.0,"occ":13.8,"release_date":"2025-11-28"},{"format":"4DX","title":"Top Gun (1986)","screenings":37,"gbo_k":3.4,"psa":91.0,"occ":6.6,"release_date":"2026-05-15"},{"format":"4DX","title":"Send Help","screenings":50,"gbo_k":3.1,"psa":62.0,"occ":4.5,"release_date":"2026-01-30"},{"format":"4DX","title":"Scarlet","screenings":87,"gbo_k":0.7,"psa":8.0,"occ":0.6,"release_date":"2026-02-20"},{"format":"SX","title":"Avatar: Fire and Ash","screenings":576,"gbo_k":193.9,"psa":337.0,"occ":15.1,"release_date":"2025-12-19"},{"format":"SX","title":"Project Hail Mary","screenings":438,"gbo_k":124.1,"psa":283.0,"occ":12.5,"release_date":"2026-03-20"},{"format":"SX","title":"The Devil Wears Prada 2","screenings":357,"gbo_k":77.2,"psa":216.0,"occ":9.7,"release_date":"2026-05-01"},{"format":"SX","title":"Michael","screenings":510,"gbo_k":71.7,"psa":141.0,"occ":10.3,"release_date":"2026-04-22"},{"format":"SX","title":"Scream 7","screenings":582,"gbo_k":62.1,"psa":107.0,"occ":5.1,"release_date":"2026-02-27"},{"format":"SX","title":"Star Wars: The Mandalorian and Grogu","screenings":309,"gbo_k":36.8,"psa":119.0,"occ":5.2,"release_date":"2026-05-22"},{"format":"SX","title":"Toy Story 5","screenings":189,"gbo_k":33.8,"psa":179.0,"occ":8.2,"release_date":"2026-06-19"},{"format":"SX","title":"The Super Mario Galaxy Movie","screenings":186,"gbo_k":23.8,"psa":128.0,"occ":0.0,"release_date":"2026-04-03"},{"format":"SX","title":"28 Years Later: The Bone Temple","screenings":134,"gbo_k":17.5,"psa":130.0,"occ":6.4,"release_date":"2026-01-16"},{"format":"SX","title":"Send Help","screenings":83,"gbo_k":13.6,"psa":164.0,"occ":8.2,"release_date":"2026-01-30"},{"format":"SX","title":"Zootopia2","screenings":51,"gbo_k":12.7,"psa":250.0,"occ":13.0,"release_date":"2025-11-28"},{"format":"SX","title":"colony","screenings":89,"gbo_k":10.5,"psa":118.0,"occ":5.2,"release_date":"2026-06-19"},{"format":"SX","title":"Stray Kids: The dominATE Experience","screenings":144,"gbo_k":10.2,"psa":71.0,"occ":3.4,"release_date":"2026-02-06"},{"format":"SX","title":"Mortal Kombat 2","screenings":115,"gbo_k":8.4,"psa":73.0,"occ":3.1,"release_date":"2026-05-08"},{"format":"SX","title":"Top Gun: Maverick (2026 Re-release)","screenings":12,"gbo_k":1.4,"psa":115.0,"occ":5.6,"release_date":"2026-05-15"},{"format":"SX","title":"Top Gun (1986)","screenings":12,"gbo_k":0.7,"psa":55.0,"occ":2.7,"release_date":"2026-05-15"},{"format":"SX","title":"Scarlet","screenings":46,"gbo_k":0.4,"psa":8.0,"occ":0.4,"release_date":"2026-02-20"}]); } catch(e) { console.error('tr dashboard init failed', e); }
+try { initWeeklyCompare('tr', [{"title":"28 Years Later: The Bone Temple","format":"4DX","week":1,"screenings":75,"gbo_k":7.6,"psa":101.0,"occ":7.6},{"title":"Avatar: Fire and Ash","format":"4DX","week":1,"screenings":304,"gbo_k":239.7,"psa":789.0,"occ":57.5},{"title":"Avatar: Fire and Ash","format":"4DX","week":2,"screenings":210,"gbo_k":58.9,"psa":281.0,"occ":20.7},{"title":"Avatar: Fire and Ash","format":"4DX","week":3,"screenings":20,"gbo_k":3.2,"psa":161.0,"occ":11.9},{"title":"Backrooms","format":"4DX","week":1,"screenings":238,"gbo_k":37.6,"psa":158.0,"occ":11.7},{"title":"GOAT","format":"4DX","week":1,"screenings":162,"gbo_k":24.0,"psa":148.0,"occ":10.4},{"title":"GOAT","format":"4DX","week":2,"screenings":30,"gbo_k":2.0,"psa":65.0,"occ":4.6},{"title":"Hoppers","format":"4DX","week":1,"screenings":187,"gbo_k":33.5,"psa":179.0,"occ":13.0},{"title":"Hoppers","format":"4DX","week":2,"screenings":7,"gbo_k":1.2,"psa":167.0,"occ":12.2},{"title":"Lee Cronin's The Mummy","format":"4DX","week":1,"screenings":59,"gbo_k":8.9,"psa":150.0,"occ":11.1},{"title":"Mercy","format":"4DX","week":1,"screenings":59,"gbo_k":7.4,"psa":125.0,"occ":9.0},{"title":"Mercy","format":"4DX","week":2,"screenings":5,"gbo_k":0.7,"psa":146.0,"occ":11.1},{"title":"Michael","format":"4DX","week":1,"screenings":129,"gbo_k":19.7,"psa":152.0,"occ":11.2},{"title":"Michael","format":"4DX","week":2,"screenings":138,"gbo_k":25.7,"psa":186.0,"occ":12.9},{"title":"Michael","format":"4DX","week":3,"screenings":12,"gbo_k":0.5,"psa":40.0,"occ":3.2},{"title":"Mortal Kombat 2","format":"4DX","week":1,"screenings":62,"gbo_k":6.1,"psa":99.0,"occ":7.1},{"title":"Project Hail Mary","format":"4DX","week":1,"screenings":56,"gbo_k":9.4,"psa":167.0,"occ":12.1},{"title":"Project Hail Mary","format":"4DX","week":2,"screenings":19,"gbo_k":5.9,"psa":311.0,"occ":22.3},{"title":"Ready or Not 2: Here I Come","format":"4DX","week":1,"screenings":33,"gbo_k":6.0,"psa":183.0,"occ":12.7},{"title":"Scarlet","format":"4DX","week":1,"screenings":87,"gbo_k":0.7,"psa":8.0,"occ":0.6},{"title":"Scary Movie","format":"4DX","week":1,"screenings":101,"gbo_k":8.7,"psa":87.0,"occ":6.3},{"title":"Scream 7","format":"4DX","week":1,"screenings":117,"gbo_k":15.1,"psa":129.0,"occ":10.0},{"title":"Scream 7","format":"4DX","week":2,"screenings":18,"gbo_k":2.3,"psa":127.0,"occ":9.9},{"title":"Send Help","format":"4DX","week":1,"screenings":50,"gbo_k":3.1,"psa":62.0,"occ":4.5},{"title":"Star Wars: The Mandalorian and Grogu","format":"4DX","week":1,"screenings":110,"gbo_k":20.4,"psa":185.0,"occ":12.7},{"title":"Star Wars: The Mandalorian and Grogu","format":"4DX","week":2,"screenings":12,"gbo_k":0.4,"psa":29.0,"occ":2.3},{"title":"Stray Kids: The dominATE Experience","format":"4DX","week":1,"screenings":82,"gbo_k":8.3,"psa":101.0,"occ":7.9},{"title":"The Bride!","format":"4DX","week":1,"screenings":79,"gbo_k":4.1,"psa":52.0,"occ":4.0},{"title":"The Super Mario Galaxy Movie","format":"4DX","week":1,"screenings":273,"gbo_k":65.5,"psa":240.0,"occ":17.6},{"title":"The Super Mario Galaxy Movie","format":"4DX","week":2,"screenings":160,"gbo_k":23.3,"psa":146.0,"occ":10.1},{"title":"Top Gun (1986)","format":"4DX","week":1,"screenings":37,"gbo_k":3.4,"psa":91.0,"occ":6.6},{"title":"Top Gun: Maverick (2026 Re-release)","format":"4DX","week":1,"screenings":32,"gbo_k":3.8,"psa":119.0,"occ":8.2},{"title":"Toy Story 5","format":"4DX","week":1,"screenings":178,"gbo_k":57.8,"psa":325.0,"occ":22.6},{"title":"Zootopia2","format":"4DX","week":1,"screenings":21,"gbo_k":3.8,"psa":182.0,"occ":13.8},{"title":"colony","format":"4DX","week":1,"screenings":45,"gbo_k":6.3,"psa":141.0,"occ":10.3},{"title":"28 Years Later: The Bone Temple","format":"SX","week":1,"screenings":134,"gbo_k":17.5,"psa":130.0,"occ":6.4},{"title":"Avatar: Fire and Ash","format":"SX","week":1,"screenings":342,"gbo_k":152.1,"psa":445.0,"occ":19.7},{"title":"Avatar: Fire and Ash","format":"SX","week":2,"screenings":216,"gbo_k":39.8,"psa":184.0,"occ":8.5},{"title":"Avatar: Fire and Ash","format":"SX","week":3,"screenings":18,"gbo_k":2.0,"psa":113.0,"occ":5.8},{"title":"Michael","format":"SX","week":1,"screenings":187,"gbo_k":22.3,"psa":119.0,"occ":0.0},{"title":"Michael","format":"SX","week":2,"screenings":146,"gbo_k":31.0,"psa":212.0,"occ":9.8},{"title":"Michael","format":"SX","week":3,"screenings":177,"gbo_k":18.4,"psa":104.0,"occ":4.8},{"title":"Mortal Kombat 2","format":"SX","week":1,"screenings":115,"gbo_k":8.4,"psa":73.0,"occ":3.1},{"title":"Project Hail Mary","format":"SX","week":1,"screenings":219,"gbo_k":61.2,"psa":280.0,"occ":11.9},{"title":"Project Hail Mary","format":"SX","week":2,"screenings":219,"gbo_k":62.8,"psa":287.0,"occ":13.1},{"title":"Scarlet","format":"SX","week":1,"screenings":46,"gbo_k":0.4,"psa":8.0,"occ":0.4},{"title":"Scream 7","format":"SX","week":1,"screenings":582,"gbo_k":62.1,"psa":107.0,"occ":5.1},{"title":"Send Help","format":"SX","week":1,"screenings":27,"gbo_k":6.5,"psa":241.0,"occ":11.8},{"title":"Send Help","format":"SX","week":2,"screenings":56,"gbo_k":7.1,"psa":127.0,"occ":6.5},{"title":"Star Wars: The Mandalorian and Grogu","format":"SX","week":1,"screenings":137,"gbo_k":19.1,"psa":139.0,"occ":5.8},{"title":"Star Wars: The Mandalorian and Grogu","format":"SX","week":2,"screenings":172,"gbo_k":17.7,"psa":103.0,"occ":4.6},{"title":"Stray Kids: The dominATE Experience","format":"SX","week":1,"screenings":144,"gbo_k":10.2,"psa":71.0,"occ":3.4},{"title":"The Devil Wears Prada 2","format":"SX","week":1,"screenings":310,"gbo_k":71.8,"psa":232.0,"occ":10.4},{"title":"The Devil Wears Prada 2","format":"SX","week":2,"screenings":47,"gbo_k":5.4,"psa":116.0,"occ":5.6},{"title":"The Super Mario Galaxy Movie","format":"SX","week":1,"screenings":186,"gbo_k":23.8,"psa":128.0,"occ":0.0},{"title":"Top Gun (1986)","format":"SX","week":1,"screenings":12,"gbo_k":0.7,"psa":55.0,"occ":2.7},{"title":"Top Gun: Maverick (2026 Re-release)","format":"SX","week":1,"screenings":12,"gbo_k":1.4,"psa":115.0,"occ":5.6},{"title":"Toy Story 5","format":"SX","week":1,"screenings":189,"gbo_k":33.8,"psa":179.0,"occ":8.2},{"title":"Zootopia2","format":"SX","week":1,"screenings":51,"gbo_k":12.7,"psa":250.0,"occ":13.0},{"title":"colony","format":"SX","week":1,"screenings":89,"gbo_k":10.5,"psa":118.0,"occ":5.2},{"title":"28 Years Later: The Bone Temple","format":"Total","week":1,"screenings":209,"gbo_k":25.0,"psa":120.0,"occ":6.7},{"title":"Avatar: Fire and Ash","format":"Total","week":1,"screenings":646,"gbo_k":391.9,"psa":607.0,"occ":33.6},{"title":"Avatar: Fire and Ash","format":"Total","week":2,"screenings":426,"gbo_k":98.7,"psa":232.0,"occ":13.2},{"title":"Avatar: Fire and Ash","format":"Total","week":3,"screenings":38,"gbo_k":5.3,"psa":138.0,"occ":8.4},{"title":"Backrooms","format":"Total","week":1,"screenings":238,"gbo_k":37.6,"psa":158.0,"occ":11.7},{"title":"GOAT","format":"Total","week":1,"screenings":162,"gbo_k":24.0,"psa":148.0,"occ":10.4},{"title":"GOAT","format":"Total","week":2,"screenings":30,"gbo_k":2.0,"psa":65.0,"occ":4.6},{"title":"Hoppers","format":"Total","week":1,"screenings":187,"gbo_k":33.5,"psa":179.0,"occ":13.0},{"title":"Hoppers","format":"Total","week":2,"screenings":7,"gbo_k":1.2,"psa":167.0,"occ":12.2},{"title":"Lee Cronin's The Mummy","format":"Total","week":1,"screenings":59,"gbo_k":8.9,"psa":150.0,"occ":11.1},{"title":"Mercy","format":"Total","week":1,"screenings":59,"gbo_k":7.4,"psa":125.0,"occ":9.0},{"title":"Mercy","format":"Total","week":2,"screenings":5,"gbo_k":0.7,"psa":146.0,"occ":11.1},{"title":"Michael","format":"Total","week":1,"screenings":316,"gbo_k":42.0,"psa":133.0,"occ":23.8},{"title":"Michael","format":"Total","week":2,"screenings":284,"gbo_k":56.7,"psa":199.0,"occ":11.0},{"title":"Michael","format":"Total","week":3,"screenings":189,"gbo_k":18.8,"psa":100.0,"occ":4.8},{"title":"Mortal Kombat 2","format":"Total","week":1,"screenings":177,"gbo_k":14.5,"psa":82.0,"occ":4.1},{"title":"Project Hail Mary","format":"Total","week":1,"screenings":275,"gbo_k":70.6,"psa":257.0,"occ":11.9},{"title":"Project Hail Mary","format":"Total","week":2,"screenings":238,"gbo_k":68.8,"psa":289.0,"occ":13.6},{"title":"Ready or Not 2: Here I Come","format":"Total","week":1,"screenings":33,"gbo_k":6.0,"psa":183.0,"occ":12.7},{"title":"Scarlet","format":"Total","week":1,"screenings":133,"gbo_k":1.1,"psa":8.0,"occ":0.5},{"title":"Scary Movie","format":"Total","week":1,"screenings":101,"gbo_k":8.7,"psa":87.0,"occ":6.3},{"title":"Scream 7","format":"Total","week":1,"screenings":699,"gbo_k":77.2,"psa":110.0,"occ":5.7},{"title":"Scream 7","format":"Total","week":2,"screenings":18,"gbo_k":2.3,"psa":127.0,"occ":9.9},{"title":"Send Help","format":"Total","week":1,"screenings":77,"gbo_k":9.6,"psa":125.0,"occ":7.7},{"title":"Send Help","format":"Total","week":2,"screenings":56,"gbo_k":7.1,"psa":127.0,"occ":6.5},{"title":"Star Wars: The Mandalorian and Grogu","format":"Total","week":1,"screenings":247,"gbo_k":39.4,"psa":160.0,"occ":8.2},{"title":"Star Wars: The Mandalorian and Grogu","format":"Total","week":2,"screenings":184,"gbo_k":18.1,"psa":98.0,"occ":4.5},{"title":"Stray Kids: The dominATE Experience","format":"Total","week":1,"screenings":226,"gbo_k":18.5,"psa":82.0,"occ":4.6},{"title":"The Bride!","format":"Total","week":1,"screenings":79,"gbo_k":4.1,"psa":52.0,"occ":4.0},{"title":"The Devil Wears Prada 2","format":"Total","week":1,"screenings":310,"gbo_k":71.8,"psa":232.0,"occ":10.4},{"title":"The Devil Wears Prada 2","format":"Total","week":2,"screenings":47,"gbo_k":5.4,"psa":116.0,"occ":5.6},{"title":"The Super Mario Galaxy Movie","format":"Total","week":1,"screenings":459,"gbo_k":89.3,"psa":195.0,"occ":23.8},{"title":"The Super Mario Galaxy Movie","format":"Total","week":2,"screenings":160,"gbo_k":23.3,"psa":146.0,"occ":10.1},{"title":"Top Gun (1986)","format":"Total","week":1,"screenings":49,"gbo_k":4.0,"psa":82.0,"occ":5.3},{"title":"Top Gun: Maverick (2026 Re-release)","format":"Total","week":1,"screenings":44,"gbo_k":5.2,"psa":118.0,"occ":7.3},{"title":"Toy Story 5","format":"Total","week":1,"screenings":367,"gbo_k":91.5,"psa":249.0,"occ":13.6},{"title":"Zootopia2","format":"Total","week":1,"screenings":72,"gbo_k":16.6,"psa":230.0,"occ":13.1},{"title":"colony","format":"Total","week":1,"screenings":134,"gbo_k":16.8,"psa":126.0,"occ":6.4}]); } catch(e) { console.error('tr weekly compare init failed', e); }
 
 // ---------- chapter navigation ----------
 document.querySelectorAll('.chapter-item').forEach(li=>{
